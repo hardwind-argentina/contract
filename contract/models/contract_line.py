@@ -22,9 +22,7 @@ class ContractLine(models.Model):
     ]
     _order = "sequence,id"
 
-    sequence = fields.Integer(
-        string="Sequence",
-    )
+    sequence = fields.Integer(string="Sequence",)
     contract_id = fields.Many2one(
         comodel_name="contract.contract",
         string="Contract",
@@ -34,12 +32,10 @@ class ContractLine(models.Model):
         ondelete="cascade",
     )
     analytic_account_id = fields.Many2one(
-        string="Analytic account",
-        comodel_name="account.analytic.account",
+        string="Analytic account", comodel_name="account.analytic.account",
     )
     analytic_tag_ids = fields.Many2many(
-        comodel_name="account.analytic.tag",
-        string="Analytic Tags",
+        comodel_name="account.analytic.tag", string="Analytic Tags",
     )
     date_start = fields.Date(required=True)
     date_end = fields.Date(compute="_compute_date_end", store=True, readonly=False)
@@ -138,16 +134,13 @@ class ContractLine(models.Model):
         self._set_recurrence_field("date_end")
 
     @api.depends(
-        "date_end",
-        "termination_notice_rule_type",
-        "termination_notice_interval",
+        "date_end", "termination_notice_rule_type", "termination_notice_interval",
     )
     def _compute_termination_notice_date(self):
         for rec in self:
             if rec.date_end:
                 rec.termination_notice_date = rec.date_end - self.get_relative_delta(
-                    rec.termination_notice_rule_type,
-                    rec.termination_notice_interval,
+                    rec.termination_notice_rule_type, rec.termination_notice_interval,
                 )
             else:
                 rec.termination_notice_date = False
@@ -349,10 +342,10 @@ class ContractLine(models.Model):
     @api.constrains("is_auto_renew", "successor_contract_line_id", "date_end")
     def _check_allowed(self):
         """
-        logical impossible combination:
-            * a line with is_auto_renew True should have date_end and
-              couldn't have successor_contract_line_id
-            * a line without date_end can't have successor_contract_line_id
+            logical impossible combination:
+                * a line with is_auto_renew True should have date_end and
+                  couldn't have successor_contract_line_id
+                * a line without date_end can't have successor_contract_line_id
 
         """
         for rec in self:
@@ -384,10 +377,7 @@ class ContractLine(models.Model):
     @api.constrains("predecessor_contract_line_id", "date_start")
     def _check_overlap_predecessor(self):
         for rec in self:
-            if (
-                rec.predecessor_contract_line_id
-                and rec.predecessor_contract_line_id.date_end
-            ):
+            if rec.predecessor_contract_line_id:
                 if rec.date_start <= rec.predecessor_contract_line_id.date_end:
                     raise ValidationError(
                         _("Contract line and its predecessor overlapped")
@@ -424,10 +414,7 @@ class ContractLine(models.Model):
         )
 
     @api.onchange(
-        "date_start",
-        "is_auto_renew",
-        "auto_renew_rule_type",
-        "auto_renew_interval",
+        "date_start", "is_auto_renew", "auto_renew_rule_type", "auto_renew_interval",
     )
     def _onchange_is_auto_renew(self):
         """Date end should be auto-computed if a contract line is set to
@@ -435,9 +422,7 @@ class ContractLine(models.Model):
         for rec in self.filtered("is_auto_renew"):
             if rec.date_start:
                 rec.date_end = self._get_first_date_end(
-                    rec.date_start,
-                    rec.auto_renew_rule_type,
-                    rec.auto_renew_interval,
+                    rec.date_start, rec.auto_renew_rule_type, rec.auto_renew_interval,
                 )
 
     @api.constrains("is_canceled", "is_auto_renew")
@@ -611,12 +596,19 @@ class ContractLine(models.Model):
         return name
 
     def _update_recurring_next_date(self):
-        # FIXME: Change method name according to real updated field
-        # e.g.: _update_last_date_invoiced()
         for rec in self:
             last_date_invoiced = rec.next_period_date_end
+            recurring_next_date = rec.get_next_invoice_date(
+                last_date_invoiced + relativedelta(days=1),
+                rec.recurring_invoicing_type,
+                rec.recurring_invoicing_offset,
+                rec.recurring_rule_type,
+                rec.recurring_interval,
+                max_date_end=rec.date_end,
+            )
             rec.write(
                 {
+                    "recurring_next_date": recurring_next_date,
                     "last_date_invoiced": last_date_invoiced,
                 }
             )
@@ -838,10 +830,7 @@ class ContractLine(models.Model):
                         post_message=False,
                     )
                     contract_line |= rec.plan_successor(
-                        new_date_start,
-                        new_date_end,
-                        is_auto_renew,
-                        post_message=False,
+                        new_date_start, new_date_end, is_auto_renew, post_message=False,
                     )
                 else:
                     new_date_start = date_end + relativedelta(days=1)
@@ -860,10 +849,7 @@ class ContractLine(models.Model):
                         post_message=False,
                     )
                     contract_line |= rec.plan_successor(
-                        new_date_start,
-                        new_date_end,
-                        is_auto_renew,
-                        post_message=False,
+                        new_date_start, new_date_end, is_auto_renew, post_message=False,
                     )
             msg = _(
                 """Contract line for <strong>{product}</strong>
@@ -872,9 +858,7 @@ class ContractLine(models.Model):
                 <br/>
                 - <strong>Suspension End</strong>: {new_date_end}
                 """.format(
-                    product=rec.name,
-                    new_date_start=date_start,
-                    new_date_end=date_end,
+                    product=rec.name, new_date_start=date_start, new_date_end=date_end,
                 )
             )
             rec.contract_id.message_post(body=msg)
@@ -1035,9 +1019,7 @@ class ContractLine(models.Model):
                 <br/>
                 - <strong>End</strong>: {new_date_end}
                 """.format(
-                    product=rec.name,
-                    new_date_start=date_start,
-                    new_date_end=date_end,
+                    product=rec.name, new_date_start=date_start, new_date_end=date_end,
                 )
             )
             rec.contract_id.message_post(body=msg)

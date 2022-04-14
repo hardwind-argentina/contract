@@ -4,12 +4,12 @@
 {
     "name": "Agreement",
     "summary": "Adds an agreement object",
-    "version": "14.0.1.0.0",
+    "version": "13.0.1.0.0",
     "category": "Contract",
     "author": "Akretion, "
     "Yves Goldberg (Ygol Internetwork), "
     "Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/contract",
+    "website": "https://github.com/oca/contract",
     "license": "AGPL-3",
     "depends": ["mail"],
     "data": [
@@ -20,9 +20,6 @@
     ],
     "demo": ["demo/demo.xml"],
     "development_status": "Beta",
-    "maintainers": [
-        "ygol",
-        "alexis-via",
-    ],
+    "maintainers": ["ygol", "alexis-via"],
     "installable": True,
 }

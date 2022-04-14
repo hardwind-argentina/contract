@@ -10,15 +10,14 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-28 02:01+0000\n"
-"PO-Revision-Date: 2021-08-05 22:50+0000\n"
-"Last-Translator: Ediz Duman <neps1192@gmail.com>\n"
+"PO-Revision-Date: 2018-04-28 02:01+0000\n"
+"Last-Translator: Ediz Duman <neps1192@gmail.com>, 2017\n"
 "Language-Team: Turkish (https://www.transifex.com/oca/teams/23907/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 4.3.2\n"
 
 #. module: contract
 #: model:mail.template,body_html:contract.mail_template_contract_modification
@@ -29,10 +28,6 @@ msgid ""
 "you.</p>\n"
 "        "
 msgstr ""
-"\n"
-"            <p>Selam</p>\n"
-"            <p>Sözleşmede size bildirmek istediğimiz değişiklikler var.</p>\n"
-"        "
 
 #. module: contract
 #: model:mail.template,body_html:contract.email_contract_template
@@ -122,15 +117,16 @@ msgid ""
 "                                contract to invoice\n"
 "                            </span>\n"
 "                            <span attrs=\"{'invisible': "
-"[('contract_to_invoice_count', '&lt;=', 1)]}\">\n"
+"[('contract_to_invoice_count', '&lt;', 1)]}\">\n"
 "                                contracts to invoice\n"
 "                            </span>"
 msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.report_contract_document
+#, fuzzy
 msgid "<strong class=\"mr16\">Subtotal</strong>"
-msgstr "<strong class=\"mr16\">Ara Toplam</strong>"
+msgstr "<strong>Toplam</strong>"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
@@ -170,22 +166,23 @@ msgstr "<strong>Sözleşme: </strong>"
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "<strong>Customer:</strong>"
-msgstr "<strong>Müşteri:</strong>"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.report_contract_document
+#, fuzzy
 msgid "<strong>Date Start</strong>"
-msgstr "<strong>Başlama Tarihi</strong>"
+msgstr "<strong>Başlama Tarihi : </strong>"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "<strong>Date end</strong>"
-msgstr "<strong>Bitiş Tarih</strong>"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "<strong>Date of Next Invoice</strong>"
-msgstr "<strong>Bir Sonraki Fatura Tarihi</strong>"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.report_contract_document
@@ -195,12 +192,13 @@ msgstr "<strong>Açıklama</strong>"
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.report_contract_document
 msgid "<strong>Modifications</strong>"
-msgstr "<strong>Değişiklikler</strong>"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.report_contract_document
+#, fuzzy
 msgid "<strong>Notes: </strong>"
-msgstr "<strong>Notlar:</strong>"
+msgstr "<strong>Toplam</strong>"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.report_contract_document
@@ -225,7 +223,7 @@ msgstr "<strong>Yinelenen Öğeler</strong>"
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "<strong>Reference</strong>"
-msgstr "<strong>Referans</strong>"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.report_contract_document
@@ -235,7 +233,7 @@ msgstr "<strong>Sorumlu: </strong>"
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "<strong>Responsible:</strong>"
-msgstr "<strong>Sorumlu:</strong>"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.report_contract_document
@@ -267,8 +265,9 @@ msgstr ""
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_abstract_contract
+#, fuzzy
 msgid "Abstract Recurring Contract"
-msgstr "Soyut Yinelenen Sözleşme"
+msgstr "Sözleşmelerden Tekrarlanan Faturalar Oluşturun"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_abstract_contract_line
@@ -278,56 +277,51 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__access_warning
 msgid "Access warning"
-msgstr "Erişim uyarısı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_needaction
 msgid "Action Needed"
-msgstr "Eylem Gerekiyor"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__active
 #: model:ir.model.fields,field_description:contract.field_contract_line__active
 msgid "Active"
-msgstr "Aktiv"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__activity_ids
 msgid "Activities"
-msgstr "Aktiviteler"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "Etkinlik İstisna Donatımı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__activity_state
 msgid "Activity State"
-msgstr "Aktivite Durumu"
-
-#. module: contract
-#: model:ir.model.fields,field_description:contract.field_contract_contract__activity_type_icon
-msgid "Activity Type Icon"
-msgstr "Aktivite Simge Türü"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 #: model_terms:ir.ui.view,arch_db:contract.contract_template_form_view
 msgid "Add a line"
-msgstr "Satır Ekle"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 #: model_terms:ir.ui.view,arch_db:contract.contract_template_form_view
 msgid "Add a note"
-msgstr "Not Ekle"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 #: model_terms:ir.ui.view,arch_db:contract.contract_template_form_view
 msgid "Add a section"
-msgstr "Bir Bölüm Ekle"
+msgstr ""
 
 #. module: contract
 #: code:addons/contract/models/contract_line.py:0
@@ -337,18 +331,20 @@ msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__analytic_tag_ids
+#, fuzzy
 msgid "Analytic Tags"
-msgstr "Analitik Etiket"
+msgstr "Analitik Hesap"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__analytic_account_id
+#, fuzzy
 msgid "Analytic account"
 msgstr "Analitik Hesap"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_search_view
 msgid "Archived"
-msgstr "Arşivlendi"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
@@ -374,7 +370,7 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_attachment_count
 msgid "Attachment Count"
-msgstr "Ek Sayısı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__is_auto_renew
@@ -382,7 +378,7 @@ msgstr "Ek Sayısı"
 #: model:ir.model.fields,field_description:contract.field_contract_line_wizard__is_auto_renew
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__is_auto_renew
 msgid "Auto Renew"
-msgstr "Otomatik Yenile"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__automatic_price
@@ -406,12 +402,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:contract.contract_line_wizard_uncancel_form_view
 #: model_terms:ir.ui.view,arch_db:contract.contract_manually_create_invoice_form_view
 msgid "Cancel"
-msgstr "İptal"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
+#, fuzzy
 msgid "Cancel Contract Termination"
-msgstr "Sözleşme Fesihini İptal Et"
+msgstr "Sözleşme Şablonu"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__is_cancel_allowed
@@ -430,20 +427,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__is_canceled
 #: model:ir.model.fields.selection,name:contract.selection__contract_line__state__canceled
 msgid "Canceled"
-msgstr "İptal Edildi"
-
-#. module: contract
-#: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__allowed_uom_categ_id
-#: model:ir.model.fields,field_description:contract.field_contract_line__allowed_uom_categ_id
-#: model:ir.model.fields,field_description:contract.field_contract_template_line__allowed_uom_categ_id
-msgid "Category"
-msgstr ""
-
-#. module: contract
-#: model:ir.model.fields,help:contract.field_contract_abstract_contract__generation_type
-#: model:ir.model.fields,help:contract.field_contract_contract__generation_type
-#: model:ir.model.fields,help:contract.field_contract_template__generation_type
-msgid "Choose the document that will be automatically generated by cron."
 msgstr ""
 
 #. module: contract
@@ -460,13 +443,13 @@ msgstr "Yeni bir sözleşme oluşturmak için tıklayın."
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_line__state__closed
 msgid "Closed"
-msgstr "Kapanma"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__commercial_partner_id
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_search_view
 msgid "Commercial Entity"
-msgstr "Ticari Varlık"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
@@ -475,8 +458,9 @@ msgstr ""
 
 #. module: contract
 #: model:ir.model,name:contract.model_res_company
+#, fuzzy
 msgid "Companies"
-msgstr "Şirketler"
+msgstr "Firma"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__company_id
@@ -498,7 +482,7 @@ msgstr "E-posta Oluştur"
 #. module: contract
 #: model:ir.model,name:contract.model_res_config_settings
 msgid "Config Settings"
-msgstr "Yapılandırma Ayarları"
+msgstr ""
 
 #. module: contract
 #: model:ir.model,name:contract.model_res_partner
@@ -514,38 +498,41 @@ msgstr "Kontak"
 #: model:ir.model.fields,field_description:contract.field_contract_line__contract_id
 #: model:ir.model.fields,field_description:contract.field_contract_modification__contract_id
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__contract_id
-#: model:mail.template,report_name:contract.email_contract_template
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 #: model_terms:ir.ui.view,arch_db:contract.res_config_settings_form_view
+#: model:mail.template,report_name:contract.email_contract_template
 msgid "Contract"
 msgstr "Sözleşme"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_my_contracts
 msgid "Contract #"
-msgstr "Sözleşme #"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "Contract -"
-msgstr "Sözleşme -"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_terminate_form_view
+#, fuzzy
 msgid "Contract Contract Terminate"
-msgstr "Sözleşme Sözleşmesi Fesih"
+msgstr "Sözleşme Şablonu"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_line
 #: model:ir.model.fields,field_description:contract.field_account_move_line__contract_line_id
 #: model:ir.model.fields,field_description:contract.field_contract_line_wizard__contract_line_id
+#, fuzzy
 msgid "Contract Line"
-msgstr "Sözleşme Satırı"
+msgstr "Sözleşme Satırları"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_line_wizard
+#, fuzzy
 msgid "Contract Line Wizard"
-msgstr "Sözleşme Satırı Sihirbazı"
+msgstr "Sözleşme Satırları"
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_line__predecessor_contract_line_id
@@ -559,8 +546,9 @@ msgstr ""
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_manually_create_invoice
+#, fuzzy
 msgid "Contract Manually Create Invoice Wizard"
-msgstr "Sözleşme Manuel Fatura Oluşturma Sihirbazı"
+msgstr "Sözleşme Satırları"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_modification
@@ -569,19 +557,22 @@ msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
+#, fuzzy
 msgid "Contract Name"
-msgstr "Sözleşme Adı"
+msgstr "Sözleşme Şablonu"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_tag
 #: model:ir.ui.menu,name:contract.contract_tag_menu
+#, fuzzy
 msgid "Contract Tag"
-msgstr "Sözleşme Etiketi"
+msgstr "Sözleşme Şablonu"
 
 #. module: contract
 #: model:ir.actions.act_window,name:contract.contract_tag_act_window
+#, fuzzy
 msgid "Contract Tags"
-msgstr "Sözleşme Etiketleri"
+msgstr "Sözleşme Şablonu"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_template
@@ -593,13 +584,15 @@ msgstr "Sözleşme Şablonu"
 #. module: contract
 #: model:ir.model,name:contract.model_contract_template_line
 #: model_terms:ir.ui.view,arch_db:contract.contract_template_line_form_view
+#, fuzzy
 msgid "Contract Template Line"
-msgstr "Sözleşme Şablonu Satırı"
+msgstr "Sözleşme Şablonu"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_template_form_view
+#, fuzzy
 msgid "Contract Template Lines"
-msgstr "Sözleşme Şablonu Satırları"
+msgstr "Sözleşme Şablonları"
 
 #. module: contract
 #: model:ir.actions.act_window,name:contract.contract_template_action
@@ -611,18 +604,21 @@ msgstr "Sözleşme Şablonları"
 #: model:ir.actions.act_window,name:contract.contract_terminate_reason_act_window
 #: model:ir.model,name:contract.model_contract_terminate_reason
 #: model:ir.ui.menu,name:contract.contract_terminate_reason_menu
+#, fuzzy
 msgid "Contract Termination Reason"
-msgstr "Sözleşme Fesih Nedeni"
+msgstr "Sözleşme Şablonları"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_manually_create_invoice__contract_to_invoice_ids
+#, fuzzy
 msgid "Contract To Invoice"
-msgstr "Fatura Sözleşmesi"
+msgstr "Sözleşme Şablonu"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_manually_create_invoice__contract_to_invoice_count
+#, fuzzy
 msgid "Contract To Invoice Count"
-msgstr "Sözleşme Fatura Sayısı"
+msgstr "Fatura"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__contract_type
@@ -630,14 +626,15 @@ msgstr "Sözleşme Fatura Sayısı"
 #: model:ir.model.fields,field_description:contract.field_contract_manually_create_invoice__contract_type
 #: model:ir.model.fields,field_description:contract.field_contract_template__contract_type
 #: model_terms:ir.ui.view,arch_db:contract.contract_template_search_view
+#, fuzzy
 msgid "Contract Type"
-msgstr "Sözleşme Türü"
+msgstr "Sözleşme Şablonu"
 
 #. module: contract
 #: code:addons/contract/models/contract_line.py:0
-#, python-format
+#, fuzzy, python-format
 msgid "Contract line '%s' start date can't be later than end date"
-msgstr "Sözleşme satırı '%s' başlangıç tarihi bitiş tarihinden sonra olamaz"
+msgstr "Sözleşme '%s' başlangıç tarihi, bitiş tarihinden sonra olamaz"
 
 #. module: contract
 #: code:addons/contract/models/contract_line.py:0
@@ -717,6 +714,7 @@ msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__contract_line_ids
+#, fuzzy
 msgid "Contract lines"
 msgstr "Sözleşme Satırları"
 
@@ -742,17 +740,19 @@ msgstr ""
 #: code:addons/contract/models/contract.py:0
 #, python-format
 msgid "Contract start"
-msgstr "Sözleşme Başlangıcı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_template__contract_line_ids
+#, fuzzy
 msgid "Contract template lines"
-msgstr "Sözleşme şablonu satırları"
+msgstr "Sözleşme Şablonları"
 
 #. module: contract
 #: model:res.groups,name:contract.can_terminate_contract
+#, fuzzy
 msgid "Contract: Can Terminate Contracts"
-msgstr "Sözleşme: Sözleşmeleri Fesih Edebilir"
+msgstr "Sözleşme Şablonları"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_res_partner__contract_ids
@@ -761,23 +761,17 @@ msgstr "Sözleşme: Sözleşmeleri Fesih Edebilir"
 #: model_terms:ir.ui.view,arch_db:contract.portal_my_contracts
 #: model_terms:ir.ui.view,arch_db:contract.portal_my_home_contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_my_home_menu_contract
+#: model_terms:ir.ui.view,arch_db:contract.view_contract_contract_calendar
+#: model_terms:ir.ui.view,arch_db:contract.view_contract_contract_graph
+#: model_terms:ir.ui.view,arch_db:contract.view_contract_contract_pivot
 msgid "Contracts"
 msgstr "Sözleşmeler"
 
 #. module: contract
 #: code:addons/contract/wizards/contract_manually_create_invoice.py:0
-#, python-format
+#, fuzzy, python-format
 msgid "Contracts to invoice"
-msgstr "Faturalanacak Sözleşmeler"
-
-#. module: contract
-#: model:ir.model.fields,help:contract.field_contract_abstract_contract_line__allowed_uom_categ_id
-#: model:ir.model.fields,help:contract.field_contract_line__allowed_uom_categ_id
-#: model:ir.model.fields,help:contract.field_contract_template_line__allowed_uom_categ_id
-msgid ""
-"Conversion between Units of Measure can only occur if they belong to the "
-"same category. The conversion will be made based on the ratios."
-msgstr ""
+msgstr "Sözleşme Satırları"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__create_invoice_visibility
@@ -787,14 +781,15 @@ msgstr "Fatura Görünürlüğü Oluştur"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_manually_create_invoice_form_view
+#, fuzzy
 msgid "Create Invoices"
-msgstr "Faturalar Oluştur"
+msgstr "Faturalar oluştur"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_res_company__create_new_line_at_contract_line_renew
 #: model:ir.model.fields,field_description:contract.field_res_config_settings__create_new_line_at_contract_line_renew
 msgid "Create New Line At Contract Line Renew"
-msgstr "Sözleşme Satırı Yenilemede Yeni Satır Oluştur"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
@@ -831,15 +826,16 @@ msgstr "Oluşturuldu"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__currency_id
+#, fuzzy
 msgid "Currency"
-msgstr "Para Birimi"
+msgstr "Tekrarlayan"
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract_line__note_invoicing_mode__custom
 #: model:ir.model.fields.selection,name:contract.selection__contract_line__note_invoicing_mode__custom
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__note_invoicing_mode__custom
 msgid "Custom"
-msgstr "Özel"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract__contract_type__sale
@@ -848,18 +844,19 @@ msgstr "Özel"
 #: model:ir.model.fields.selection,name:contract.selection__contract_template__contract_type__sale
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_customer_form_view
 msgid "Customer"
-msgstr "Müşteri"
+msgstr ""
 
 #. module: contract
 #: model:ir.actions.act_window,name:contract.action_customer_contract
 #: model:ir.ui.menu,name:contract.menu_contract_contract_customer
+#, fuzzy
 msgid "Customer Contracts"
-msgstr "Müşteri Sözleşmeleri"
+msgstr "Sözleşmeler"
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_contract__access_url
 msgid "Customer Portal URL"
-msgstr "Müşteri Portal URL"
+msgstr ""
 
 #. module: contract
 #: code:addons/contract/controllers/main.py:0
@@ -869,7 +866,7 @@ msgstr "Müşteri Portal URL"
 #: model_terms:ir.ui.view,arch_db:contract.template_contract_modification
 #, python-format
 msgid "Date"
-msgstr "Tarih"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__date_end
@@ -896,7 +893,7 @@ msgstr "Başlama Tarihi"
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_my_contracts
 msgid "Date end"
-msgstr "Bitiş Tarihi"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__recurring_next_date
@@ -930,6 +927,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__auto_renew_rule_type__daily
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__recurring_rule_type__daily
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__termination_notice_rule_type__daily
+#: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "Day(s)"
 msgstr "Gün(ler)"
 
@@ -981,8 +979,6 @@ msgstr ""
 "Üretilen faturalarda uygulanan indirim. 100'den az veya ona eşit olmalıdır"
 
 #. module: contract
-#: model:ir.model.fields,field_description:contract.field_account_move__display_name
-#: model:ir.model.fields,field_description:contract.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__display_name
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__display_name
 #: model:ir.model.fields,field_description:contract.field_contract_contract__display_name
@@ -997,9 +993,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:contract.field_contract_template__display_name
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__display_name
 #: model:ir.model.fields,field_description:contract.field_contract_terminate_reason__display_name
-#: model:ir.model.fields,field_description:contract.field_res_company__display_name
-#: model:ir.model.fields,field_description:contract.field_res_config_settings__display_name
-#: model:ir.model.fields,field_description:contract.field_res_partner__display_name
 msgid "Display Name"
 msgstr "Ad Görünümü"
 
@@ -1007,16 +1000,9 @@ msgstr "Ad Görünümü"
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__display_type
 #: model:ir.model.fields,field_description:contract.field_contract_line__display_type
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__display_type
+#, fuzzy
 msgid "Display Type"
-msgstr "Ekran Türü"
-
-#. module: contract
-#: code:addons/contract/wizards/contract_manually_create_invoice.py:0
-#, python-format
-msgid ""
-"Failed to process the contract %(name)s [id: %(id)s]:\n"
-"%(ue)s"
-msgstr ""
+msgstr "Ad Görünümü"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_search_view
@@ -1026,26 +1012,21 @@ msgstr "Sonlanmış"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__fiscal_position_id
 msgid "Fiscal Position"
-msgstr "Mali Pozisyon"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_follower_ids
 msgid "Followers"
-msgstr "Takipçiler"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_channel_ids
 msgid "Followers (Channels)"
-msgstr "Takipçiler (Kanallar)"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Tekipçiler (İş ortakları)"
-
-#. module: contract
-#: model:ir.model.fields,help:contract.field_contract_contract__activity_type_icon
-msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: contract
@@ -1056,16 +1037,10 @@ msgid "Generate Recurring Invoices from Contracts"
 msgstr "Sözleşmelerden Tekrarlanan Faturalar Oluşturun"
 
 #. module: contract
-#: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__generation_type
-#: model:ir.model.fields,field_description:contract.field_contract_contract__generation_type
-#: model:ir.model.fields,field_description:contract.field_contract_template__generation_type
-msgid "Generation Type"
-msgstr ""
-
-#. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__group_id
+#, fuzzy
 msgid "Group"
-msgstr "Grup"
+msgstr "Grupla ..."
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_search_view
@@ -1073,8 +1048,6 @@ msgid "Group By..."
 msgstr "Grupla ..."
 
 #. module: contract
-#: model:ir.model.fields,field_description:contract.field_account_move__id
-#: model:ir.model.fields,field_description:contract.field_account_move_line__id
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__id
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__id
 #: model:ir.model.fields,field_description:contract.field_contract_contract__id
@@ -1089,21 +1062,18 @@ msgstr "Grupla ..."
 #: model:ir.model.fields,field_description:contract.field_contract_template__id
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__id
 #: model:ir.model.fields,field_description:contract.field_contract_terminate_reason__id
-#: model:ir.model.fields,field_description:contract.field_res_company__id
-#: model:ir.model.fields,field_description:contract.field_res_config_settings__id
-#: model:ir.model.fields,field_description:contract.field_res_partner__id
 msgid "ID"
 msgstr "ID"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__activity_exception_icon
 msgid "Icon"
-msgstr "İkon"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_contract__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr "Bir istisna faaliyetini gösteren simge."
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_res_company__create_new_line_at_contract_line_renew
@@ -1118,13 +1088,13 @@ msgstr ""
 #: model:ir.model.fields,help:contract.field_contract_contract__message_needaction
 #: model:ir.model.fields,help:contract.field_contract_contract__message_unread
 msgid "If checked, new messages require your attention."
-msgstr "İşaretliyse, yeni mesajlar dikkatinize sunulacak."
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_contract__message_has_error
 #: model:ir.model.fields,help:contract.field_contract_contract__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "İşaretliyse,bazı mesajlar gönderi hatası içermektedir."
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_abstract_contract_line__automatic_price
@@ -1135,8 +1105,8 @@ msgid ""
 "pricelist to the product. If not, you will be able to introduce a manual "
 "price"
 msgstr ""
-"Bu işaretlenirse, fiyat listesi ürüne uygulanarak fiyat otomatik olarak elde "
-"edilecektir. Değilse, manuel bir fiyat sunabileceksiniz"
+"Bu işaretliyse, Fiyat fiyat listesinden ürüne otomatik olarak uygulayarak "
+"elde edilir. Değilse, manuel fiyat uygulayabilirsiniz."
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_line__successor_contract_line_id
@@ -1148,22 +1118,24 @@ msgstr ""
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_search_view
 msgid "In progress"
-msgstr "Devam Eden"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_line__state__in-progress
 msgid "In-progress"
-msgstr "Devam etmekte"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__invoice_count
+#, fuzzy
 msgid "Invoice Count"
-msgstr "Fatura Sayısı"
+msgstr "Fatura"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_manually_create_invoice__invoice_date
+#, fuzzy
 msgid "Invoice Date"
-msgstr "Fatura Tarihi"
+msgstr "Sonraki Fatura"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__recurring_interval
@@ -1174,13 +1146,14 @@ msgstr "Fatura Tarihi"
 #: model:ir.model.fields,field_description:contract.field_contract_recurrency_mixin__recurring_interval
 #: model:ir.model.fields,field_description:contract.field_contract_template__recurring_interval
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__recurring_interval
+#, fuzzy
 msgid "Invoice Every"
-msgstr "Fatura Aralığı"
+msgstr "Fatura"
 
 #. module: contract
 #: model:mail.message.subtype,name:contract.mail_message_subtype_invoice_created
 msgid "Invoice created"
-msgstr "Fatura oluşturuldu"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_abstract_contract__recurring_interval
@@ -1191,8 +1164,9 @@ msgstr "Fatura oluşturuldu"
 #: model:ir.model.fields,help:contract.field_contract_recurrency_mixin__recurring_interval
 #: model:ir.model.fields,help:contract.field_contract_template__recurring_interval
 #: model:ir.model.fields,help:contract.field_contract_template_line__recurring_interval
+#, fuzzy
 msgid "Invoice every (Days/Week/Month/Year)"
-msgstr "Fatura Her (Gün/Hafta/Ay/Yıl)"
+msgstr "Tekrarlama Her (Gün / Hafta / Ay / Yıl) "
 
 #. module: contract
 #: code:addons/contract/wizards/contract_manually_create_invoice.py:0
@@ -1203,8 +1177,9 @@ msgstr "Faturalar"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__invoice_partner_id
+#, fuzzy
 msgid "Invoicing contact"
-msgstr "Faturalanan Kontak"
+msgstr "Fatura türü"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__recurring_invoicing_offset
@@ -1215,8 +1190,9 @@ msgstr "Faturalanan Kontak"
 #: model:ir.model.fields,field_description:contract.field_contract_recurrency_mixin__recurring_invoicing_offset
 #: model:ir.model.fields,field_description:contract.field_contract_template__recurring_invoicing_offset
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__recurring_invoicing_offset
+#, fuzzy
 msgid "Invoicing offset"
-msgstr "Ofset Faturalama"
+msgstr "Fatura türü"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__recurring_invoicing_type
@@ -1228,12 +1204,12 @@ msgstr "Ofset Faturalama"
 #: model:ir.model.fields,field_description:contract.field_contract_template__recurring_invoicing_type
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__recurring_invoicing_type
 msgid "Invoicing type"
-msgstr "Fatura Türü"
+msgstr "Fatura türü"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_is_follower
 msgid "Is Follower"
-msgstr "Takipçi mi"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__is_recurring_note
@@ -1257,13 +1233,13 @@ msgstr "Yevmiye"
 
 #. module: contract
 #: model:ir.model,name:contract.model_account_move
-msgid "Journal Entry"
-msgstr "Yevmiye Girişi"
+msgid "Journal Entries"
+msgstr ""
 
 #. module: contract
 #: model:ir.model,name:contract.model_account_move_line
 msgid "Journal Item"
-msgstr "Yevmiye Öğesi"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__last_date_invoiced
@@ -1271,12 +1247,11 @@ msgstr "Yevmiye Öğesi"
 #: model:ir.model.fields,field_description:contract.field_contract_line__last_date_invoiced
 #: model:ir.model.fields,field_description:contract.field_contract_recurrency_mixin__last_date_invoiced
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__last_date_invoiced
+#, fuzzy
 msgid "Last Date Invoiced"
-msgstr "Son Fatura Tarihi"
+msgstr "Sonraki Fatura Tarihi"
 
 #. module: contract
-#: model:ir.model.fields,field_description:contract.field_account_move____last_update
-#: model:ir.model.fields,field_description:contract.field_account_move_line____last_update
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract____last_update
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line____last_update
 #: model:ir.model.fields,field_description:contract.field_contract_contract____last_update
@@ -1291,9 +1266,6 @@ msgstr "Son Fatura Tarihi"
 #: model:ir.model.fields,field_description:contract.field_contract_template____last_update
 #: model:ir.model.fields,field_description:contract.field_contract_template_line____last_update
 #: model:ir.model.fields,field_description:contract.field_contract_terminate_reason____last_update
-#: model:ir.model.fields,field_description:contract.field_res_company____last_update
-#: model:ir.model.fields,field_description:contract.field_res_config_settings____last_update
-#: model:ir.model.fields,field_description:contract.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "Son Değiştirilme"
 
@@ -1334,12 +1306,12 @@ msgstr "Açıklamalar (fatura satırlarındaki tanımlayıcılar için)"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_main_attachment_id
 msgid "Main Attachment"
-msgstr "Ana Ek"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__manual_currency_id
 msgid "Manual Currency"
-msgstr "Manuel Para Birimi"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__manual_renew_needed
@@ -1350,14 +1322,16 @@ msgstr ""
 #. module: contract
 #: model:ir.actions.act_window,name:contract.purchase_contract_manually_create_invoice_act_window
 #: model:ir.ui.menu,name:contract.purchase_contract_manually_create_invoice_menu
+#, fuzzy
 msgid "Manually Invoice Purchase Contracts"
-msgstr "Manuel Fatura Satın Alma Sözleşmeleri"
+msgstr "Sözleşmeler"
 
 #. module: contract
 #: model:ir.actions.act_window,name:contract.sale_contract_manually_create_invoice_act_window
 #: model:ir.ui.menu,name:contract.sale_contract_manually_create_invoice_menu
+#, fuzzy
 msgid "Manually Invoice Sale Contracts"
-msgstr "Manuel Fatura Satış Sözleşmeleri"
+msgstr "Sözleşmeler"
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_abstract_contract__line_recurrence
@@ -1371,18 +1345,18 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_has_error
 msgid "Message Delivery error"
-msgstr "Mesaj Teslim hatası"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_ids
 msgid "Messages"
-msgstr "Mesajlar"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__modification_ids
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 msgid "Modifications"
-msgstr "Değişiklikler"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract__recurring_rule_type__monthly
@@ -1399,8 +1373,16 @@ msgstr "Değişiklikler"
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__auto_renew_rule_type__monthly
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__recurring_rule_type__monthly
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__termination_notice_rule_type__monthly
+#: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "Month(s)"
 msgstr "Ay(lar)"
+
+#. module: contract
+#: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
+msgid ""
+"Month(s) last\n"
+"                                                        day"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract__recurring_rule_type__monthlylastday
@@ -1413,11 +1395,6 @@ msgstr "Ay(lar)"
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__recurring_rule_type__monthlylastday
 msgid "Month(s) last day"
 msgstr "Ay(lar) son günü"
-
-#. module: contract
-#: model:ir.model.fields,field_description:contract.field_contract_contract__my_activity_date_deadline
-msgid "My Activity Deadline"
-msgstr ""
 
 #. module: contract
 #: code:addons/contract/controllers/main.py:0
@@ -1434,17 +1411,17 @@ msgstr "Adı"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Sonraki Aktivite Zaman Sınırı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__activity_summary
 msgid "Next Activity Summary"
-msgstr "Sonraki Aktivite Özeti"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__activity_type_id
 msgid "Next Activity Type"
-msgstr "Sonraki Aktivite Türü"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_search_view
@@ -1453,22 +1430,23 @@ msgstr "Sonraki Fatura"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line_wizard__recurring_next_date
+#, fuzzy
 msgid "Next Invoice Date"
-msgstr "Sonraki Fatura Tarihi"
+msgstr "Sonraki Fatura"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__next_period_date_end
 #: model:ir.model.fields,field_description:contract.field_contract_line__next_period_date_end
 #: model:ir.model.fields,field_description:contract.field_contract_recurrency_mixin__next_period_date_end
 msgid "Next Period End"
-msgstr "Sonraki Dönem Sonu"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__next_period_date_start
 #: model:ir.model.fields,field_description:contract.field_contract_line__next_period_date_start
 #: model:ir.model.fields,field_description:contract.field_contract_recurrency_mixin__next_period_date_start
 msgid "Next Period Start"
-msgstr "Sonraki Dönem Başlangıcı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract_line__display_type__line_note
@@ -1476,24 +1454,25 @@ msgstr "Sonraki Dönem Başlangıcı"
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__display_type__line_note
 #: model_terms:ir.ui.view,arch_db:contract.contract_abstract_contract_line_form_view
 msgid "Note"
-msgstr "Not"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__note_invoicing_mode
 #: model:ir.model.fields,field_description:contract.field_contract_line__note_invoicing_mode
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__note_invoicing_mode
+#, fuzzy
 msgid "Note Invoicing Mode"
-msgstr "Not Faturalama Modu"
+msgstr "Fatura türü"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__note
 msgid "Notes"
-msgstr "Notlar"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Eylemlerin Sayısı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_abstract_contract__recurring_invoicing_offset
@@ -1508,58 +1487,56 @@ msgid ""
 "Number of days to offset the invoice from the period end date (in post-paid "
 "mode) or start date (in pre-paid mode)."
 msgstr ""
-"Faturanın dönem bitiş tarihinden (sonradan ödemeli modda) veya başlangıç "
-"tarihinden (ön ödemeli modda) mahsup edilecek gün sayısı."
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_has_error_counter
 msgid "Number of errors"
-msgstr "Hata sayısı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_contract__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr "Eylem gerektiren mesaj sayısı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_contract__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "Teslimat hatası olan mesaj sayısı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_contract__message_unread_counter
 msgid "Number of unread messages"
-msgstr "Okunmamış mesaj sayısı"
+msgstr ""
 
 #. module: contract
-#: model:ir.model.fields,field_description:contract.field_account_bank_statement_line__old_contract_id
 #: model:ir.model.fields,field_description:contract.field_account_move__old_contract_id
-#: model:ir.model.fields,field_description:contract.field_account_payment__old_contract_id
+#, fuzzy
 msgid "Old Contract"
-msgstr "Eski Sözleşme"
+msgstr "Sözleşme"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 msgid "Other Information"
-msgstr "Diğer Bilgiler"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__partner_id
 #: model:ir.model.fields,field_description:contract.field_contract_contract__partner_id
 #: model:ir.model.fields,field_description:contract.field_contract_template__partner_id
 msgid "Partner"
-msgstr "İş Ortağı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__payment_term_id
 msgid "Payment Terms"
-msgstr "Ödeme Koşulları"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 #: model_terms:ir.ui.view,arch_db:contract.contract_line_tree_view
+#, fuzzy
 msgid "Plan Start"
-msgstr "Plan Başlangıcı"
+msgstr "Başlama Tarihi"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__is_plan_successor_allowed
@@ -1574,14 +1551,14 @@ msgstr ""
 
 #. module: contract
 #: code:addons/contract/models/contract.py:0
-#, python-format
+#, fuzzy, python-format
 msgid "Please define a %s journal for the company '%s'."
-msgstr "Lütfen '%s' şirketi için bir %s yevmiye tanımlayın."
+msgstr "Lütfen '%s' firması için bir satış yevmiyesi tanımlayın."
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__access_url
 msgid "Portal Access URL"
-msgstr "Portal Erişim URL"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract__recurring_invoicing_type__post-paid
@@ -1609,18 +1586,19 @@ msgstr "Ön-Ödemeli"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__predecessor_contract_line_id
+#, fuzzy
 msgid "Predecessor Contract Line"
-msgstr "Önceki Sözleşme Satırı"
+msgstr "Sözleşme Satırları"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 msgid "Preview"
-msgstr "Önizle"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "Price unit"
-msgstr "Birim Fiyat"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__pricelist_id
@@ -1641,8 +1619,9 @@ msgstr "Ürün"
 #: model:ir.model.fields,field_description:contract.field_res_partner__purchase_contract_count
 #: model:ir.model.fields,field_description:contract.field_res_users__purchase_contract_count
 #: model_terms:ir.ui.view,arch_db:contract.view_partner_form
+#, fuzzy
 msgid "Purchase Contracts"
-msgstr "Satın Alma Sözleşmeleri"
+msgstr "Sözleşmeler"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__quantity
@@ -1661,8 +1640,9 @@ msgstr "Miktar"
 #: model:ir.model.fields.selection,name:contract.selection__contract_recurrency_mixin__recurring_rule_type__quarterly
 #: model:ir.model.fields.selection,name:contract.selection__contract_template__recurring_rule_type__quarterly
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__recurring_rule_type__quarterly
+#: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "Quarter(s)"
-msgstr "Çeyrek"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__recurring_rule_type
@@ -1682,7 +1662,7 @@ msgstr "Tekrarlayan"
 #: model:ir.model.fields,field_description:contract.field_contract_contract__line_recurrence
 #: model:ir.model.fields,field_description:contract.field_contract_template__line_recurrence
 msgid "Recurrence at line level?"
-msgstr "Satır düzeyinde yineleme?"
+msgstr ""
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_recurrency_mixin
@@ -1695,44 +1675,42 @@ msgid "Recurring Invoices"
 msgstr "Tekrarlayan Faturalar"
 
 #. module: contract
-#: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
-msgid "Recurring Type"
-msgstr ""
-
-#. module: contract
 #: code:addons/contract/controllers/main.py:0
 #: model:ir.model.fields,field_description:contract.field_contract_contract__code
 #: model_terms:ir.ui.view,arch_db:contract.portal_my_contracts
-#, python-format
+#, fuzzy, python-format
 msgid "Reference"
-msgstr "Referans"
+msgstr "Tekrarlayan"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 #: model_terms:ir.ui.view,arch_db:contract.contract_line_tree_view
 msgid "Renew"
-msgstr "Yenile"
+msgstr ""
 
 #. module: contract
 #: model:ir.actions.server,name:contract.contract_line_cron_for_renew_ir_actions_server
 #: model:ir.cron,cron_name:contract.contract_line_cron_for_renew
 #: model:ir.cron,name:contract.contract_line_cron_for_renew
+#, fuzzy
 msgid "Renew Contract lines"
-msgstr "Sözleşme satırlarını Yenile"
+msgstr "Sözleşme Satırları"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__auto_renew_interval
 #: model:ir.model.fields,field_description:contract.field_contract_line__auto_renew_interval
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__auto_renew_interval
+#, fuzzy
 msgid "Renew Every"
-msgstr "Her Yenile"
+msgstr "Tekrar Aralığı"
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_abstract_contract_line__auto_renew_interval
 #: model:ir.model.fields,help:contract.field_contract_line__auto_renew_interval
 #: model:ir.model.fields,help:contract.field_contract_template_line__auto_renew_interval
+#, fuzzy
 msgid "Renew every (Days/Week/Month/Year)"
-msgstr "Yenile Her (Gün / Hafta / Ay / Yıl)"
+msgstr "Tekrarlama Her (Gün / Hafta / Ay / Yıl) "
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__auto_renew_rule_type
@@ -1754,33 +1732,36 @@ msgstr "Sorumlu"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__activity_user_id
+#, fuzzy
 msgid "Responsible User"
-msgstr "Sorumlu Kullanıcı"
+msgstr "Sorumlu"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr "SMS Ulaştırma hatası"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_res_partner__sale_contract_count
 #: model:ir.model.fields,field_description:contract.field_res_users__sale_contract_count
 #: model_terms:ir.ui.view,arch_db:contract.view_partner_form
+#, fuzzy
 msgid "Sale Contracts"
-msgstr "Satış Sözleşmeleri"
+msgstr "Sözleşmeler"
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract_line__display_type__line_section
 #: model:ir.model.fields.selection,name:contract.selection__contract_line__display_type__line_section
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__display_type__line_section
 #: model_terms:ir.ui.view,arch_db:contract.contract_abstract_contract_line_form_view
+#, fuzzy
 msgid "Section"
-msgstr "Bölüm"
+msgstr "Açıklama"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__access_token
 msgid "Security Token"
-msgstr "Güvenlik Token"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract__recurring_rule_type__semesterly
@@ -1791,8 +1772,9 @@ msgstr "Güvenlik Token"
 #: model:ir.model.fields.selection,name:contract.selection__contract_recurrency_mixin__recurring_rule_type__semesterly
 #: model:ir.model.fields.selection,name:contract.selection__contract_template__recurring_rule_type__semesterly
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__recurring_rule_type__semesterly
+#: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "Semester(s)"
-msgstr "Dönem(ler)"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
@@ -1820,13 +1802,15 @@ msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.view_partner_form
+#, fuzzy
 msgid "Show the purchase contracts for this partner"
-msgstr "Bu iş ortağı için satın alma sözleşmelerini göster"
+msgstr "Bu iş ortağı için sözleşmeleri göster"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.view_partner_form
+#, fuzzy
 msgid "Show the sale contracts for this partner"
-msgstr "Bu iş ortağının satış sözleşmelerini göster"
+msgstr "Bu iş ortağı için sözleşmeleri göster"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__specific_price
@@ -1871,7 +1855,7 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__state
 msgid "State"
-msgstr "İl/Eyalet"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_contract__activity_state
@@ -1881,10 +1865,6 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
-"Etkinliklerdeki aşamalar\n"
-"Zamanı Geçmiş: Tarihi geçmiş \n"
-"Bugün: Etkinlik günü bugün\n"
-"Planlanan: Gelecek etkinlikler."
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
@@ -1931,12 +1911,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:contract.field_contract_template_line__price_subtotal
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "Sub Total"
-msgstr "Ara Toplam"
+msgstr "Alt Toplam"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__successor_contract_line_id
+#, fuzzy
 msgid "Successor Contract Line"
-msgstr "Halef Sözleşme Satırı"
+msgstr "Sözleşme Satırları"
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract__contract_type__purchase
@@ -1945,28 +1926,29 @@ msgstr "Halef Sözleşme Satırı"
 #: model:ir.model.fields.selection,name:contract.selection__contract_template__contract_type__purchase
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_supplier_form_view
 msgid "Supplier"
-msgstr "Tedarikçi"
+msgstr ""
 
 #. module: contract
 #: model:ir.actions.act_window,name:contract.action_supplier_contract
 #: model:ir.ui.menu,name:contract.menu_contract_contract_supplier
+#, fuzzy
 msgid "Supplier Contracts"
-msgstr "Tedarikçi Sözleşmeleri"
+msgstr "Sözleşmeler"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_line_wizard_stop_plan_successor_form_view
 msgid "Suspension End Date"
-msgstr "Askıya Alma Bitiş Tarihi"
+msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_line_wizard_stop_plan_successor_form_view
 msgid "Suspension Start Date"
-msgstr "Askıya Alma Başlangıç Tarihi"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__tag_ids
 msgid "Tags"
-msgstr "Etiketler"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_abstract_contract_line__display_type
@@ -1979,31 +1961,32 @@ msgstr ""
 #: code:addons/contract/models/contract.py:0
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_terminate_form_view
-#, python-format
+#, fuzzy, python-format
 msgid "Terminate Contract"
-msgstr "Sözleşmeyi Fesih"
+msgstr "Sözleşmeler"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_contract_terminate
+#, fuzzy
 msgid "Terminate Contract Wizard"
-msgstr "Sözleşmeyi Sonlandırma Sihirbazı"
+msgstr "Sözleşme Satırları"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__is_terminated
 msgid "Terminated"
-msgstr "Sonlandırılmış"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__terminate_comment
 #: model:ir.model.fields,field_description:contract.field_contract_contract_terminate__terminate_comment
 msgid "Termination Comment"
-msgstr "Sonlandırma Yorumu"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__terminate_date
 #: model:ir.model.fields,field_description:contract.field_contract_contract_terminate__terminate_date
 msgid "Termination Date"
-msgstr "Sonlandırma Tarihi"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__termination_notice_interval
@@ -2023,7 +2006,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:contract.field_contract_contract__terminate_reason_id
 #: model:ir.model.fields,field_description:contract.field_contract_contract_terminate__terminate_reason_id
 msgid "Termination Reason"
-msgstr "Sonlandırma Nedeni"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__termination_notice_date
@@ -2046,12 +2029,12 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_line__state__to-renew
 msgid "To renew"
-msgstr "Yenile"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_contract__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "Kayıttaki istisna etkinliğinin türü."
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__is_un_cancel_allowed
@@ -2087,17 +2070,17 @@ msgstr "Ölçü Birimi"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_unread
 msgid "Unread Messages"
-msgstr "Okunmamış Mesajlar"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr "Okunmamış Mesaj Sayacı"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_line__state__upcoming
 msgid "Upcoming"
-msgstr "Yaklaşan"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_line__state__upcoming-close
@@ -2119,18 +2102,19 @@ msgstr "KDV:"
 #: model_terms:ir.ui.view,arch_db:contract.contract_line_wizard_stop_form_view
 #: model_terms:ir.ui.view,arch_db:contract.contract_line_wizard_stop_plan_successor_form_view
 #: model_terms:ir.ui.view,arch_db:contract.contract_line_wizard_uncancel_form_view
+#, fuzzy
 msgid "Validate"
-msgstr "Doğrulan"
+msgstr "Geçerli"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__website_message_ids
 msgid "Website Messages"
-msgstr "Websitesi Mesajları"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields,help:contract.field_contract_contract__website_message_ids
 msgid "Website communication history"
-msgstr "Web Sitesi iletişim geçmişi"
+msgstr ""
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract__recurring_rule_type__weekly
@@ -2147,6 +2131,7 @@ msgstr "Web Sitesi iletişim geçmişi"
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__auto_renew_rule_type__weekly
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__recurring_rule_type__weekly
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__termination_notice_rule_type__weekly
+#: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "Week(s)"
 msgstr "Hafta(lar)"
 
@@ -2181,6 +2166,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:contract.selection__contract_template__recurring_rule_type__yearly
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__auto_renew_rule_type__yearly
 #: model:ir.model.fields.selection,name:contract.selection__contract_template_line__recurring_rule_type__yearly
+#: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "Year(s)"
 msgstr "Yıl(lar)"
 
@@ -2236,8 +2222,9 @@ msgstr ""
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
+#, fuzzy
 msgid "e.g. Contract XYZ"
-msgstr "ör. Sözleşme XYZ"
+msgstr "Sözleşmeler"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view

@@ -1,4 +1,4 @@
-odoo.define("agreement_legal.agreement", function (require) {
+odoo.define("agreement_legal.agreement", function(require) {
     "use strict";
 
     var KanbanController = require("web.KanbanController");
@@ -6,7 +6,7 @@ odoo.define("agreement_legal.agreement", function (require) {
     var FormController = require("web.FormController");
 
     var includeDict = {
-        renderButtons: function () {
+        renderButtons: function() {
             this._super.apply(this, arguments);
             if (this.modelName === "agreement" && this.$buttons) {
                 var self = this;
@@ -22,7 +22,7 @@ odoo.define("agreement_legal.agreement", function (require) {
                 }
                 this.$buttons
                     .find(".create_agreement_from_template")
-                    .on("click", function () {
+                    .on("click", function() {
                         self.do_action(
                             "agreement_legal.create_agreement_from_template_action",
                             {

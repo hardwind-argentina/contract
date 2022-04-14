@@ -20,12 +20,7 @@ class ContractAbstractContractLine(models.AbstractModel):
 
     name = fields.Text(string="Description", required=True)
     quantity = fields.Float(default=1.0, required=True)
-    allowed_uom_categ_id = fields.Many2one(related="product_id.uom_id.category_id")
-    uom_id = fields.Many2one(
-        "uom.uom",
-        string="Unit of Measure",
-        domain="[('category_id', '=?', allowed_uom_categ_id)]",
-    )
+    uom_id = fields.Many2one("uom.uom", string="Unit of Measure")
     automatic_price = fields.Boolean(
         string="Auto-price?",
         help="If this is marked, the price will be obtained automatically "
@@ -39,9 +34,7 @@ class ContractAbstractContractLine(models.AbstractModel):
         inverse="_inverse_price_unit",
     )
     price_subtotal = fields.Float(
-        compute="_compute_price_subtotal",
-        digits="Account",
-        string="Sub Total",
+        compute="_compute_price_subtotal", digits="Account", string="Sub Total",
     )
     discount = fields.Float(
         string="Discount (%)",
@@ -76,18 +69,13 @@ class ContractAbstractContractLine(models.AbstractModel):
         copy=True,
     )
     date_start = fields.Date(
-        compute="_compute_date_start",
-        store=True,
-        readonly=False,
-        copy=True,
+        compute="_compute_date_start", store=True, readonly=False, copy=True,
     )
     last_date_invoiced = fields.Date(string="Last Date Invoiced")
     is_canceled = fields.Boolean(string="Canceled", default=False)
     is_auto_renew = fields.Boolean(string="Auto Renew", default=False)
     auto_renew_interval = fields.Integer(
-        default=1,
-        string="Renew Every",
-        help="Renew every (Days/Week/Month/Year)",
+        default=1, string="Renew Every", help="Renew every (Days/Week/Month/Year)",
     )
     auto_renew_rule_type = fields.Selection(
         [
@@ -191,15 +179,12 @@ class ContractAbstractContractLine(models.AbstractModel):
             if line.automatic_price:
                 pricelist = (
                     line.contract_id.pricelist_id
-                    or line.contract_id.partner_id.with_company(
-                        line.contract_id.company_id
+                    or line.contract_id.partner_id.with_context(
+                        force_company=line.contract_id.company_id.id,
                     ).property_product_pricelist
                 )
                 product = line.product_id.with_context(
-                    quantity=line.env.context.get(
-                        "contract_line_qty",
-                        line.quantity,
-                    ),
+                    quantity=line.env.context.get("contract_line_qty", line.quantity,),
                     pricelist=pricelist.id,
                     partner=line.contract_id.partner_id.id,
                     date=line.env.context.get(
@@ -237,7 +222,13 @@ class ContractAbstractContractLine(models.AbstractModel):
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
+        if not self.product_id:
+            return {"domain": {"uom_id": []}}
+
         vals = {}
+        domain = {
+            "uom_id": [("category_id", "=", self.product_id.uom_id.category_id.id)]
+        }
         if not self.uom_id or (
             self.product_id.uom_id.category_id.id != self.uom_id.category_id.id
         ):
@@ -256,3 +247,4 @@ class ContractAbstractContractLine(models.AbstractModel):
         vals["name"] = self.product_id.get_product_multiline_description_sale()
         vals["price_unit"] = product.price
         self.update(vals)
+        return {"domain": domain}

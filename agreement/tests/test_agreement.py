@@ -1,7 +1,6 @@
 # Copyright 2021 Ecosoft Co., Ltd (http://ecosoft.co.th)
 # Copyright 2021 Sergio Teruel - Tecnativa
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
-
 from odoo.tests.common import TransactionCase
 
 
@@ -9,10 +8,7 @@ class TestAgreement(TransactionCase):
     def setUp(self):
         super().setUp()
         self.agreement_type = self.env["agreement.type"].create(
-            {
-                "name": "Test Agreement Type",
-                "domain": "purchase",
-            }
+            {"name": "Test Agreement Type", "domain": "purchase"}
         )
         self.agreement = self.env.ref("agreement.market1")
 

@@ -6,15 +6,11 @@
 # Copyright 2018 ACSONE SA/NV
 # Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-import logging
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
 from odoo.tests import Form
 from odoo.tools.translate import _
-
-_logger = logging.getLogger(__name__)
 
 
 class ContractContract(models.Model):
@@ -29,16 +25,10 @@ class ContractContract(models.Model):
         "portal.mixin",
     ]
 
-    active = fields.Boolean(
-        default=True,
-    )
-    code = fields.Char(
-        string="Reference",
-    )
+    active = fields.Boolean(default=True,)
+    code = fields.Char(string="Reference",)
     group_id = fields.Many2one(
-        string="Group",
-        comodel_name="account.analytic.account",
-        ondelete="restrict",
+        string="Group", comodel_name="account.analytic.account", ondelete="restrict",
     )
     currency_id = fields.Many2one(
         compute="_compute_currency_id",
@@ -46,10 +36,7 @@ class ContractContract(models.Model):
         comodel_name="res.currency",
         string="Currency",
     )
-    manual_currency_id = fields.Many2one(
-        comodel_name="res.currency",
-        readonly=True,
-    )
+    manual_currency_id = fields.Many2one(comodel_name="res.currency", readonly=True,)
     contract_template_id = fields.Many2one(
         string="Contract Template", comodel_name="contract.template"
     )
@@ -90,10 +77,7 @@ class ContractContract(models.Model):
         ondelete="restrict",
     )
     invoice_partner_id = fields.Many2one(
-        string="Invoicing contact",
-        comodel_name="res.partner",
-        ondelete="restrict",
-        domain="['|', ('id', 'parent_of', partner_id), ('id', 'child_of', partner_id)]",
+        string="Invoicing contact", comodel_name="res.partner", ondelete="restrict",
     )
     partner_id = fields.Many2one(
         comodel_name="res.partner", inverse="_inverse_partner_id", required=True
@@ -119,16 +103,10 @@ class ContractContract(models.Model):
         tracking=True,
     )
     terminate_comment = fields.Text(
-        string="Termination Comment",
-        readonly=True,
-        copy=False,
-        tracking=True,
+        string="Termination Comment", readonly=True, copy=False, tracking=True,
     )
     terminate_date = fields.Date(
-        string="Termination Date",
-        readonly=True,
-        copy=False,
-        tracking=True,
+        string="Termination Date", readonly=True, copy=False, tracking=True,
     )
     modification_ids = fields.One2many(
         comodel_name="contract.modification",
@@ -220,15 +198,7 @@ class ContractContract(models.Model):
 
         invoices = (
             self.env["account.move.line"]
-            .search(
-                [
-                    (
-                        "contract_line_id",
-                        "in",
-                        self.contract_line_ids.ids,
-                    )
-                ]
-            )
+            .search([("contract_line_id", "in", self.contract_line_ids.ids,)])
             .mapped("move_id")
         )
         # we are forced to always search for this for not losing possible <=v11
@@ -244,18 +214,14 @@ class ContractContract(models.Model):
             # Use pricelist currency
             currency = (
                 self.pricelist_id.currency_id
-                or self.partner_id.with_company(
-                    self.company_id
+                or self.partner_id.with_context(
+                    force_company=self.company_id.id,
                 ).property_product_pricelist.currency_id
             )
         return currency or self.journal_id.currency_id or self.company_id.currency_id
 
     @api.depends(
-        "manual_currency_id",
-        "pricelist_id",
-        "partner_id",
-        "journal_id",
-        "company_id",
+        "manual_currency_id", "pricelist_id", "partner_id", "journal_id", "company_id",
     )
     def _compute_currency_id(self):
         for rec in self:
@@ -302,8 +268,7 @@ class ContractContract(models.Model):
                 contract.date_end = max(date_end)
 
     @api.depends(
-        "contract_line_ids.recurring_next_date",
-        "contract_line_ids.is_canceled",
+        "contract_line_ids.recurring_next_date", "contract_line_ids.is_canceled",
     )
     def _compute_recurring_next_date(self):
         for contract in self:
@@ -365,7 +330,7 @@ class ContractContract(models.Model):
         partner = (
             self.partner_id
             if not self.company_id
-            else self.partner_id.with_company(self.company_id)
+            else self.partner_id.with_context(force_company=self.company_id.id)
         )
         self.pricelist_id = partner.property_product_pricelist.id
         self.fiscal_position_id = partner.env[
@@ -376,6 +341,15 @@ class ContractContract(models.Model):
         else:
             self.payment_term_id = partner.property_payment_term_id
         self.invoice_partner_id = self.partner_id.address_get(["invoice"])["invoice"]
+        return {
+            "domain": {
+                "invoice_partner_id": [
+                    "|",
+                    ("id", "parent_of", self.partner_id.id),
+                    ("id", "child_of", self.partner_id.id),
+                ]
+            }
+        }
 
     def _convert_contract_lines(self, contract):
         self.ensure_one()
@@ -419,9 +393,9 @@ class ContractContract(models.Model):
         if self.contract_type == "purchase":
             invoice_type = "in_invoice"
         move_form = Form(
-            self.env["account.move"]
-            .with_company(self.company_id)
-            .with_context(default_move_type=invoice_type)
+            self.env["account.move"].with_context(
+                force_company=self.company_id.id, default_type=invoice_type
+            )
         )
         move_form.partner_id = self.invoice_partner_id
         if self.payment_term_id:
@@ -487,11 +461,11 @@ class ContractContract(models.Model):
         """
         self.ensure_one()
 
-        def can_be_invoiced(contract_line):
+        def can_be_invoiced(l):
             return (
-                not contract_line.is_canceled
-                and contract_line.recurring_next_date
-                and contract_line.recurring_next_date <= date_ref
+                not l.is_canceled
+                and l.recurring_next_date
+                and l.recurring_next_date <= date_ref
             )
 
         lines2invoice = previous = self.env["contract.line"]
@@ -591,46 +565,23 @@ class ContractContract(models.Model):
         return moves
 
     @api.model
-    def _get_recurring_create_func(self, create_type="invoice"):
-        """
-        Allows to retrieve the recurring create function depending
-        on generate_type attribute
-        """
-        if create_type == "invoice":
-            return self.__class__._recurring_create_invoice
-
-    @api.model
-    def _cron_recurring_create(self, date_ref=False, create_type="invoice"):
-        """
-        The cron function in order to create recurrent documents
-        from contracts.
-        """
-        _recurring_create_func = self._get_recurring_create_func(
-            create_type=create_type
-        )
+    def cron_recurring_create_invoice(self, date_ref=None):
         if not date_ref:
             date_ref = fields.Date.context_today(self)
         domain = self._get_contracts_to_invoice_domain(date_ref)
-        domain = expression.AND(
-            [
-                domain,
-                [("generation_type", "=", create_type)],
-            ]
-        )
-        contracts = self.search(domain)
-        companies = set(contracts.mapped("company_id"))
+        invoices = self.env["account.move"]
         # Invoice by companies, so assignation emails get correct context
-        for company in companies:
-            contracts_to_invoice = contracts.filtered(
-                lambda c: c.company_id == company
-                and (not c.date_end or c.recurring_next_date <= c.date_end)
-            ).with_company(company)
-            _recurring_create_func(contracts_to_invoice, date_ref)
-        return True
-
-    @api.model
-    def cron_recurring_create_invoice(self, date_ref=None):
-        return self._cron_recurring_create(date_ref, create_type="invoice")
+        companies_to_invoice = self.read_group(domain, ["company_id"], ["company_id"])
+        for row in companies_to_invoice:
+            contracts_to_invoice = (
+                self.search(row["__domain"])
+                .with_context(allowed_company_ids=[row["company_id"][0]])
+                .filtered(
+                    lambda a: not a.date_end or a.recurring_next_date <= a.date_end
+                )
+            )
+            invoices |= contracts_to_invoice._recurring_create_invoice(date_ref)
+        return invoices
 
     def action_terminate_contract(self):
         self.ensure_one()

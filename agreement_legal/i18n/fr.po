@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-24 16:40+0000\n"
-"PO-Revision-Date: 2019-09-12 11:23+0000\n"
-"Last-Translator: Yves Goldberg <admin@ygol.com>\n"
+"PO-Revision-Date: 2021-01-04 11:44+0000\n"
+"Last-Translator: Rémi <remi@le-filament.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: agreement_legal
 #: model_terms:ir.ui.view,arch_db:agreement_legal.view_project_agreement_kanban
@@ -33,6 +33,11 @@ msgstr ""
 #: model:ir.model.fields.selection,name:agreement_legal.selection__agreement__state__active
 msgid "Active"
 msgstr "Actif"
+
+#. module: agreement_legal
+#: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_search_view
+msgid "Active Activities"
+msgstr ""
 
 #. module: agreement_legal
 #: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_form_view
@@ -142,6 +147,18 @@ msgid "Agreement Types"
 msgstr "Types de l'accord"
 
 #. module: agreement_legal
+#: model:mail.activity.type,name:agreement_legal.mail_activity_review_agreement
+msgid "Agreement needs a review"
+msgstr ""
+
+#. module: agreement_legal
+#: model:ir.actions.server,name:agreement_legal.ir_cron_test_acc_move_except_ir_actions_server
+#: model:ir.cron,cron_name:agreement_legal.ir_cron_test_acc_move_except
+#: model:ir.cron,name:agreement_legal.ir_cron_test_acc_move_except
+msgid "Agreement: Check to Review Days"
+msgstr ""
+
+#. module: agreement_legal
 #: model:ir.actions.act_window,name:agreement_legal.action_agreement_report_order
 #: model:ir.actions.act_window,name:agreement_legal.agreement_dashboard_agreement
 #: model:ir.actions.act_window,name:agreement_legal.agreement_operations_agreement
@@ -152,6 +169,7 @@ msgstr "Types de l'accord"
 #: model:ir.ui.menu,name:agreement_legal.operations_agreements
 #: model_terms:ir.ui.view,arch_db:agreement_legal.agreement_graph_view
 #: model_terms:ir.ui.view,arch_db:agreement_legal.agreement_pivot_view
+#: model_terms:ir.ui.view,arch_db:agreement_legal.agreement_view_activity
 #: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_list_view
 #: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_section_search_view
 #: model_terms:ir.ui.view,arch_db:agreement_legal.partner_form
@@ -178,6 +196,11 @@ msgstr ""
 #. module: agreement_legal
 #: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_subtype_search_view
 msgid "Agreements Sub-Types Search"
+msgstr ""
+
+#. module: agreement_legal
+#: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_search_view
+msgid "Agreements to review"
 msgstr ""
 
 #. module: agreement_legal
@@ -303,7 +326,6 @@ msgstr "Informations sur la société"
 
 #. module: agreement_legal
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement__company_partner_id
-#, fuzzy
 msgid "Company's Partner"
 msgstr "Contact de la société"
 
@@ -458,6 +480,11 @@ msgid "Date the contract was signed by the Partner."
 msgstr "Date de signature du contrat par le partenaire."
 
 #. module: agreement_legal
+#: model:ir.model.fields,help:agreement_legal.field_agreement__to_review_date
+msgid "Date used to warn us some days before agreement expires"
+msgstr ""
+
+#. module: agreement_legal
 #: model_terms:ir.ui.view,arch_db:agreement_legal.report_agreement_document
 msgid "Date:"
 msgstr "Date :"
@@ -484,7 +511,6 @@ msgid "Description of the agreement"
 msgstr "Description de l'accord"
 
 #. module: agreement_legal
-#: model:ir.model.fields,field_description:agreement_legal.field_agreement__display_name
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_appendix__display_name
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_clause__display_name
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_line__display_name
@@ -492,10 +518,7 @@ msgstr "Description de l'accord"
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_section__display_name
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_stage__display_name
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_subtype__display_name
-#: model:ir.model.fields,field_description:agreement_legal.field_agreement_type__display_name
 #: model:ir.model.fields,field_description:agreement_legal.field_create_agreement_wizard__display_name
-#: model:ir.model.fields,field_description:agreement_legal.field_res_config_settings__display_name
-#: model:ir.model.fields,field_description:agreement_legal.field_res_partner__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
@@ -599,7 +622,6 @@ msgid "Helpdesk"
 msgstr "Assistance"
 
 #. module: agreement_legal
-#: model:ir.model.fields,field_description:agreement_legal.field_agreement__id
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_appendix__id
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_clause__id
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_line__id
@@ -607,10 +629,7 @@ msgstr "Assistance"
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_section__id
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_stage__id
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_subtype__id
-#: model:ir.model.fields,field_description:agreement_legal.field_agreement_type__id
 #: model:ir.model.fields,field_description:agreement_legal.field_create_agreement_wizard__id
-#: model:ir.model.fields,field_description:agreement_legal.field_res_config_settings__id
-#: model:ir.model.fields,field_description:agreement_legal.field_res_partner__id
 msgid "ID"
 msgstr "ID"
 
@@ -661,7 +680,6 @@ msgid "Is Folded"
 msgstr "Est replié"
 
 #. module: agreement_legal
-#: model:ir.model.fields,field_description:agreement_legal.field_agreement____last_update
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_appendix____last_update
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_clause____last_update
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_line____last_update
@@ -669,10 +687,7 @@ msgstr "Est replié"
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_section____last_update
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_stage____last_update
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_subtype____last_update
-#: model:ir.model.fields,field_description:agreement_legal.field_agreement_type____last_update
 #: model:ir.model.fields,field_description:agreement_legal.field_create_agreement_wizard____last_update
-#: model:ir.model.fields,field_description:agreement_legal.field_res_config_settings____last_update
-#: model:ir.model.fields,field_description:agreement_legal.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
@@ -699,6 +714,11 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:agreement_legal.field_create_agreement_wizard__write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
+
+#. module: agreement_legal
+#: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_search_view
+msgid "Late Activities"
+msgstr ""
 
 #. module: agreement_legal
 #: model:ir.model.fields,help:agreement_legal.field_agreement__parent_agreement_id
@@ -853,6 +873,12 @@ msgid "New Version"
 msgstr "Nouvelle version"
 
 #. module: agreement_legal
+#: model:ir.model.fields,field_description:agreement_legal.field_agreement__no_end_date
+#: model:ir.model.fields,field_description:agreement_legal.field_agreement_type__no_end_date
+msgid "No End Date"
+msgstr ""
+
+#. module: agreement_legal
 #: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_search_view
 msgid "Non-Templates"
 msgstr "Non-modèles"
@@ -865,12 +891,12 @@ msgstr "Adresse de notification"
 #. module: agreement_legal
 #: model:ir.model.fields,help:agreement_legal.field_agreement__expiration_notice
 msgid "Number of Days before expiration to be notified."
-msgstr "Nombre de jours avant expiration à notifier."
+msgstr "Nombre de jours avant l'expiration pour être notifié."
 
 #. module: agreement_legal
 #: model:ir.model.fields,help:agreement_legal.field_agreement__change_notice
 msgid "Number of Days to be notified before changes."
-msgstr "Nombre de jours à notifier avant les modifications."
+msgstr "Nombre de jours pour être notifié avant les modifications."
 
 #. module: agreement_legal
 #: model:ir.ui.menu,name:agreement_legal.agreement_operations
@@ -1074,6 +1100,16 @@ msgid "Returns"
 msgstr "Retours"
 
 #. module: agreement_legal
+#: model:ir.model.fields,field_description:agreement_legal.field_agreement_type__review_days
+msgid "Review Days"
+msgstr ""
+
+#. module: agreement_legal
+#: model:ir.model.fields,field_description:agreement_legal.field_agreement_type__review_user_id
+msgid "Review User"
+msgstr ""
+
+#. module: agreement_legal
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement__reviewed_user_id
 msgid "Reviewed By"
 msgstr "Révisée par"
@@ -1196,9 +1232,8 @@ msgstr ""
 
 #. module: agreement_legal
 #: model:ir.model.fields,help:agreement_legal.field_agreement__agreement_type_id
-#, fuzzy
 msgid "Select the type of agreement"
-msgstr "Sélectionnez le type d'accord."
+msgstr "Sélectionner le type d'accord"
 
 #. module: agreement_legal
 #: model:ir.model.fields,help:agreement_legal.field_agreement__assigned_user_id
@@ -1224,6 +1259,16 @@ msgstr "Séquence"
 #: model:ir.ui.menu,name:agreement_legal.agreement_settings
 msgid "Settings"
 msgstr "Configuration"
+
+#. module: agreement_legal
+#: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_search_view
+msgid "Show all activities which deadline is after today"
+msgstr ""
+
+#. module: agreement_legal
+#: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_search_view
+msgid "Show all activities which deadline is before today"
+msgstr ""
 
 #. module: agreement_legal
 #: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_form_view
@@ -1485,6 +1530,11 @@ msgid "Title:"
 msgstr "Titre :"
 
 #. module: agreement_legal
+#: model:ir.model.fields,field_description:agreement_legal.field_agreement__to_review_date
+msgid "To Review Date"
+msgstr ""
+
+#. module: agreement_legal
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement_stage__stage_type
 #: model_terms:ir.ui.view,arch_db:agreement_legal.partner_agreement_stage_search_view
 msgid "Type"
@@ -1524,6 +1574,11 @@ msgstr "Utiliser le contenu des parties"
 #: model:res.groups,name:agreement_legal.group_agreement_user
 msgid "User"
 msgstr "Utilisateur"
+
+#. module: agreement_legal
+#: model:ir.model.fields,help:agreement_legal.field_agreement_type__review_user_id
+msgid "User assigned automatically the activity on review date"
+msgstr ""
 
 #. module: agreement_legal
 #: model:ir.model.fields,field_description:agreement_legal.field_agreement__version
@@ -1576,12 +1631,23 @@ msgid "When the agreement starts."
 msgstr "Quand l'accord commence."
 
 #. module: agreement_legal
+#: code:addons/agreement_legal/models/agreement.py:0
+#, python-format
+msgid "Your activity is going to end soon"
+msgstr ""
+
+#. module: agreement_legal
 #: model:ir.model.fields,help:agreement_legal.field_agreement_appendix__dynamic_content
 #: model:ir.model.fields,help:agreement_legal.field_agreement_clause__dynamic_content
 #: model:ir.model.fields,help:agreement_legal.field_agreement_recital__dynamic_content
 #: model:ir.model.fields,help:agreement_legal.field_agreement_section__dynamic_content
 msgid "compute dynamic Content"
 msgstr "Générer le contenu dynamique"
+
+#. module: agreement_legal
+#: model:mail.activity.type,summary:agreement_legal.mail_activity_review_agreement
+msgid "note"
+msgstr ""
 
 #. module: agreement_legal
 #: model_terms:ir.ui.view,arch_db:agreement_legal.view_project_agreement_kanban
@@ -1665,10 +1731,8 @@ msgstr "| Créé le :"
 #~ msgid "Domain"
 #~ msgstr "Domaine"
 
-#, fuzzy
-#~| msgid "Domain"
 #~ msgid "Domain node"
-#~ msgstr "Domaine"
+#~ msgstr "Nœud de domaine"
 
 #~ msgid "Edit Domain"
 #~ msgstr "Editer le domaine"
@@ -1697,10 +1761,8 @@ msgstr "| Créé le :"
 #~ msgid "Invalid field chain"
 #~ msgstr "Chaîne de champ non-valide"
 
-#, fuzzy
-#~| msgid "Agreements"
 #~ msgid "Manage Agreements"
-#~ msgstr "Accords"
+#~ msgstr "Gérer les Accords"
 
 #~ msgid "Match"
 #~ msgstr "Correspond"

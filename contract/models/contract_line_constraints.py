@@ -28,8 +28,7 @@ Criteria = namedtuple(
     ],
 )
 Allowed = namedtuple(
-    "Allowed",
-    ["plan_successor", "stop_plan_successor", "stop", "cancel", "uncancel"],
+    "Allowed", ["plan_successor", "stop_plan_successor", "stop", "cancel", "uncancel"],
 )
 
 
@@ -47,7 +46,7 @@ def _expand_none(criteria):
 
 
 def _add(matrix, criteria, allowed):
-    """Expand None values to True/False combination"""
+    """ Expand None values to True/False combination """
     for c in _expand_none(criteria):
         matrix[c] = allowed
 

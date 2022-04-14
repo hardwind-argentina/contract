@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-02-06 20:59+0000\n"
+"PO-Revision-Date: 2021-05-30 19:48+0000\n"
 "Last-Translator: Ignacio Buioli <ibuioli@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es_AR\n"
@@ -47,11 +47,6 @@ msgstr "Decoración de Excepción de Actividad"
 #: model:ir.model.fields,field_description:agreement.field_agreement__activity_state
 msgid "Activity State"
 msgstr "Estado de Actividades"
-
-#. module: agreement
-#: model:ir.model.fields,field_description:agreement.field_agreement__activity_type_icon
-msgid "Activity Type Icon"
-msgstr "Icono de Tipo de Actividad"
 
 #. module: agreement
 #: model:ir.model,name:agreement.model_agreement
@@ -154,12 +149,7 @@ msgstr "Seguidores (Canales)"
 #. module: agreement
 #: model:ir.model.fields,field_description:agreement.field_agreement__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Seguidores (Contactos)"
-
-#. module: agreement
-#: model:ir.model.fields,help:agreement.field_agreement__activity_type_icon
-msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Icono de Font awesome ej. fa-tasks"
+msgstr "Seguidores (Socios)"
 
 #. module: agreement
 #: model:ir.model.fields,field_description:agreement.field_agreement__id
@@ -170,7 +160,7 @@ msgstr "ID"
 #. module: agreement
 #: model:ir.model.fields,help:agreement.field_agreement__code
 msgid "ID used for internal contract tracking."
-msgstr "ID usado para rastreo de contrato interno."
+msgstr "ID utilizada para el rastreo interno del contrato."
 
 #. module: agreement
 #: model:ir.model.fields,field_description:agreement.field_agreement__activity_exception_icon
@@ -244,11 +234,6 @@ msgid "Messages"
 msgstr "Mensajes"
 
 #. module: agreement
-#: model:ir.model.fields,field_description:agreement.field_agreement__my_activity_date_deadline
-msgid "My Activity Deadline"
-msgstr "Plazo para Mi Actividad"
-
-#. module: agreement
 #: model:ir.model.fields,field_description:agreement.field_agreement_type__name
 msgid "Name"
 msgstr "Nombre"
@@ -302,7 +287,7 @@ msgstr "Número de mensajes sin leer"
 #: model:ir.model.fields,field_description:agreement.field_agreement__partner_id
 #: model_terms:ir.ui.view,arch_db:agreement.agreement_search
 msgid "Partner"
-msgstr "Contacto"
+msgstr "Socio"
 
 #. module: agreement
 #: code:addons/agreement/models/agreement.py:0
@@ -381,7 +366,7 @@ msgstr ""
 #. module: agreement
 #: model:ir.model.fields,help:agreement.field_agreement__partner_id
 msgid "The customer or vendor this agreement is related to."
-msgstr "El cliente o vendedor al cual este acuerdo está relacionado."
+msgstr "El cliente o proveedor relacionado con este acuerdo."
 
 #. module: agreement
 #: model:ir.model.constraint,message:agreement.constraint_agreement_code_partner_company_unique
@@ -442,6 +427,3 @@ msgstr "Cuando el acuerdo finaliza."
 #: model:ir.model.fields,help:agreement.field_agreement__start_date
 msgid "When the agreement starts."
 msgstr "Cuando el acuerdo inicia."
-
-#~ msgid "Code"
-#~ msgstr "Código"

@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
     <!-- Agreement List View-->
     <record model="ir.ui.view" id="partner_agreement_list_view">
         <field name="name">Agreement List</field>
@@ -18,7 +18,6 @@
             </tree>
         </field>
     </record>
-
     <!-- Agreement Form View -->
     <record model="ir.ui.view" id="partner_agreement_form_view">
         <field name="name">Agreement Form</field>
@@ -156,10 +155,12 @@
                             </div>
                         </group>
                         <group name="company" string="Company">
-                            <div class="o_address_format">
+                            <div
+                                class="o_address_format"
+                                groups="base.group_multi_company"
+                            >
                                 <field
                                     name="company_id"
-                                    readonly="1"
                                     context="{'show_address': 1}"
                                     options="{'always_reload': True}"
                                 />
@@ -224,7 +225,11 @@
                             />
                             <field
                                 name="end_date"
-                                attrs="{'required': [('is_template', '=', False)], 'invisible': [('is_template', '=', True)]}"
+                                attrs="{'required': [('is_template', '=', False), ('no_end_date', '=', False)], 'invisible': [('is_template', '=', True)]}"
+                            />
+                            <field
+                                name="to_review_date"
+                                attrs="{'required': [('is_template', '=', False), ('end_date', '!=', False)], 'invisible': [('is_template', '=', True)]}"
                             />
                             <field name="expiration_notice" />
                             <field name="change_notice" />
@@ -234,6 +239,7 @@
                             />
                             <field name="termination_requested" />
                             <field name="termination_date" />
+                            <field name="no_end_date" invisible="1" />
                         </group>
                     </group>
                     <group string="Special Terms">
@@ -395,7 +401,6 @@
             </form>
         </field>
     </record>
-
     <!-- Agreement Kanban View -->
     <record id="view_project_agreement_kanban" model="ir.ui.view">
         <field name="name">Agreement Kanban</field>
@@ -404,6 +409,11 @@
             <kanban default_group_by="stage_id">
                 <field name="color" />
                 <field name="assigned_user_id" />
+                <field name="activity_state" />
+                <progressbar
+                    field="activity_state"
+                    colors='{"planned": "success", "today": "warning", "overdue": "danger"}'
+                />
                 <templates>
                     <t t-name="kanban-box">
                         <div
@@ -414,7 +424,8 @@
                                     <div class="o_kanban_record_headings">
                                         <strong class="o_kanban_record_title">
                                             <field name="name" />
-                                        </strong><br />
+                                        </strong>
+                                        <br />
                                         <div
                                             class="o_kanban_record_subtitle text-muted"
                                         >
@@ -424,7 +435,9 @@
                                                 t-set="red"
                                             >oe_kanban_text_red</t>
                                             <div t-attf-class="#{red || ''}">
-                                                <i><field name="end_date" /></i>
+                                                <i>
+                                                    <field name="end_date" />
+                                                </i>
                                             </div>
                                         </div>
                                     </div>
@@ -449,9 +462,9 @@
                                             role="menu"
                                             aria-labelledby="dLabel"
                                         >
-                                            <li t-if="widget.editable"><a
-                                                    type="edit"
-                                                >Edit</a></li>
+                                            <li t-if="widget.editable">
+                                                <a type="edit">Edit</a>
+                                            </li>
                                             <li class="divider" />
                                             <li
                                                 class="dropdown-header"
@@ -486,6 +499,10 @@
                                             class="oe_kanban_avatar"
                                             alt="user &amp; picture"
                                         />
+                                        <field
+                                            name="activity_ids"
+                                            widget="kanban_activity"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -496,7 +513,6 @@
             </kanban>
         </field>
     </record>
-
     <!-- Agreement Search View -->
     <record model="ir.ui.view" id="partner_agreement_search_view">
         <field name="name">Agreement Search</field>
@@ -509,19 +525,38 @@
                 <field name="agreement_type_id" />
                 <field name="agreement_subtype_id" />
                 <filter
+                    name="filter_inactive"
+                    string="Archived"
+                    domain="[('active','=',False)]"
+                />
+                <separator />
+                <filter
                     name="filter_non_template"
                     string="Non-Templates"
                     domain="[('active','=',True),('is_template', '=', False)]"
                 />
                 <filter
-                    name="filter_inactive"
-                    string="Archived"
-                    domain="[('active','=',False)]"
-                />
-                <filter
                     name="filter_templates"
                     string="Templates"
                     domain="[('active','=',True),('is_template', '=', True)]"
+                />
+                <separator />
+                <filter
+                    name="activities_overdue"
+                    string="Late Activities"
+                    domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                    help="Show all activities which deadline is before today"
+                />
+                <filter
+                    name="activities_overdue"
+                    string="Active Activities"
+                    domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"
+                    help="Show all activities which deadline is after today"
+                />
+                <filter
+                    name="filter_to_review"
+                    string="Agreements to review"
+                    domain="[('to_review_date', '&lt;=', context_today().strftime('%Y-%m-%d')), ('end_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"
                 />
                 <filter
                     name="group_partner_id"
@@ -550,7 +585,34 @@
             </search>
         </field>
     </record>
-
+    <!-- Agreement Activity -->
+    <record id="agreement_view_activity" model="ir.ui.view">
+        <field name="name">agreement.activity</field>
+        <field name="model">agreement</field>
+        <field name="arch" type="xml">
+            <activity string="Agreements">
+                <field name="id" />
+                <templates>
+                    <div t-name="activity-box">
+                        <img
+                            t-att-src="activity_image('res.partner', 'image_128', record.id.raw_value)"
+                            role="img"
+                            t-att-title="record.id.value"
+                            t-att-alt="record.id.value"
+                        />
+                        <div>
+                            <field name="name" display="full" />
+                            <field
+                                name="parent_agreement_id"
+                                muted="1"
+                                display="full"
+                            />
+                        </div>
+                    </div>
+                </templates>
+            </activity>
+        </field>
+    </record>
     <!-- Agreement Reporting -->
     <record id="agreement_graph_view" model="ir.ui.view">
         <field name="name">agreement.graph</field>
@@ -561,7 +623,6 @@
             </graph>
         </field>
     </record>
-
     <record id="agreement_pivot_view" model="ir.ui.view">
         <field name="name">agreement.pivot</field>
         <field name="model">agreement</field>
@@ -571,37 +632,31 @@
             </pivot>
         </field>
     </record>
-
     <record id="action_agreement_report_order" model="ir.actions.act_window">
         <field name="name">Agreements</field>
         <field name="res_model">agreement</field>
         <field name="view_mode">graph,pivot</field>
     </record>
-
     <!-- actions opening views on models -->
-
     <record model="ir.actions.act_window" id="agreement_dashboard_agreement">
         <field name="name">Agreements</field>
         <field name="res_model">agreement</field>
         <field name="domain">[('is_template', '=', False)]</field>
         <field name="context">{'default_is_template': False}</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
     </record>
-
     <record model="ir.actions.act_window" id="agreement_operations_agreement">
         <field name="name">Agreements</field>
         <field name="res_model">agreement</field>
         <field name="domain">[('is_template', '=', False)]</field>
         <field name="context">{'default_is_template': False}</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,activity</field>
     </record>
-
     <record model="ir.actions.act_window" id="partner_agreement_agreement_templates">
         <field name="name">Templates</field>
         <field name="res_model">agreement</field>
         <field name="domain">[('is_template', '=', True)]</field>
         <field name="context">{'default_is_template': True}</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
     </record>
-
 </odoo>

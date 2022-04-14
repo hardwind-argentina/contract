@@ -3,16 +3,15 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import odoo.tests
 from odoo import exceptions
-from odoo.tests.common import SavepointCase
 
 
-class TestContractVariableQuantity(SavepointCase):
-    at_install = False
-    post_install = True
-
+@odoo.tests.at_install(False)
+@odoo.tests.post_install(True)
+class TestContractVariableQuantity(odoo.tests.HttpCase):
     def setUp(self):
-        super().setUp()
+        super(TestContractVariableQuantity, self).setUp()
         self.partner = self.env["res.partner"].create({"name": "Test partner"})
         self.product = self.env["product.product"].create({"name": "Test product"})
         self.contract = self.env["contract.contract"].create(

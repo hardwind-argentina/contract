@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
     <!-- Agreement Stage List View-->
     <record model="ir.ui.view" id="partner_agreement_stage_list_view">
         <field name="name">Agreement Stage List</field>
@@ -13,7 +13,6 @@
             </tree>
         </field>
     </record>
-
     <!-- Agreement Stage Form View -->
     <record model="ir.ui.view" id="partner_agreement_stage_form_view">
         <field name="name">Agreement Stage Form</field>
@@ -29,7 +28,9 @@
                     />
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only" />
-                        <h1><field name="name" /></h1>
+                        <h1>
+                            <field name="name" />
+                        </h1>
                     </div>
                     <group>
                         <field name="sequence" />
@@ -42,7 +43,6 @@
             </form>
         </field>
     </record>
-
     <!-- Agreement Stage Search View -->
     <record model="ir.ui.view" id="partner_agreement_stage_search_view">
         <field name="name">Agreement Stage Search</field>
@@ -66,12 +66,10 @@
             </search>
         </field>
     </record>
-
     <!-- Actions opening views on models -->
     <record model="ir.actions.act_window" id="partner_agreement_action_stage">
         <field name="name">Agreement Stage</field>
         <field name="res_model">agreement.stage</field>
         <field name="view_mode">tree,form</field>
     </record>
-
 </odoo>

@@ -12,13 +12,8 @@ class Partner(models.Model):
 
     @api.depends("agreement_ids")
     def _compute_agreements_count(self):
-        domain = [("partner_id", "in", self.ids)]
-        res = self.env["agreement"].read_group(
-            domain=domain, fields=["partner_id"], groupby=["partner_id"]
-        )
-        agreement_dict = {x["partner_id"][0]: x["partner_id_count"] for x in res}
-        for rec in self:
-            rec.agreements_count = agreement_dict.get(rec.id, 0)
+        for record in self:
+            record.agreements_count = len(record.agreement_ids)
 
     def action_open_agreement(self):
         self.ensure_one()

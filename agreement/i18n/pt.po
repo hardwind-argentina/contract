@@ -49,11 +49,6 @@ msgid "Activity State"
 msgstr "Estado da Atividade"
 
 #. module: agreement
-#: model:ir.model.fields,field_description:agreement.field_agreement__activity_type_icon
-msgid "Activity Type Icon"
-msgstr ""
-
-#. module: agreement
 #: model:ir.model,name:agreement.model_agreement
 #: model_terms:ir.ui.view,arch_db:agreement.agreement_form
 msgid "Agreement"
@@ -157,11 +152,6 @@ msgid "Followers (Partners)"
 msgstr "Seguidores (Parceiros)"
 
 #. module: agreement
-#: model:ir.model.fields,help:agreement.field_agreement__activity_type_icon
-msgid "Font awesome icon e.g. fa-tasks"
-msgstr ""
-
-#. module: agreement
 #: model:ir.model.fields,field_description:agreement.field_agreement__id
 #: model:ir.model.fields,field_description:agreement.field_agreement_type__id
 msgid "ID"
@@ -242,11 +232,6 @@ msgstr "Erro de envio de mensagem"
 #: model:ir.model.fields,field_description:agreement.field_agreement__message_ids
 msgid "Messages"
 msgstr "Mensagens"
-
-#. module: agreement
-#: model:ir.model.fields,field_description:agreement.field_agreement__my_activity_date_deadline
-msgid "My Activity Deadline"
-msgstr ""
 
 #. module: agreement
 #: model:ir.model.fields,field_description:agreement.field_agreement_type__name

@@ -4,5 +4,3 @@
 * `Tecnativa <https://www.tecnativa.com>`_:
 
     * Sergio Teruel
-
-* Tharathip Chaweewongphan <tharathipc@ecosoft.co.th>

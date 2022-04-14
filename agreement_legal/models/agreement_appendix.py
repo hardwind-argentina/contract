@@ -67,8 +67,7 @@ class AgreementAppendix(models.Model):
         self.copyvalue = False
         if self.field_id and not self.field_id.relation:
             self.copyvalue = "${{object.{} or {}}}".format(
-                self.field_id.name,
-                self.default_value or "''",
+                self.field_id.name, self.default_value or "''",
             )
             self.sub_model_object_field_id = False
         if self.field_id and self.field_id.relation:

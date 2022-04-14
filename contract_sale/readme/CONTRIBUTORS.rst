@@ -6,5 +6,3 @@
 
 * Levent Karakaş
 * Bejaoui Souheil <souheil.bejaoui@acsone.eu>
-* Dhara Solanki <dhara.solanki@initos.com>
-* Joan Mateu <Joan.mateu@forgeflow.com>

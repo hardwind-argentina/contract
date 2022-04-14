@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <!-- Remove top menu from agreement module -->
     <!-- <delete model="ir.ui.menu" id="agreement.agreement_menu" /> -->
-
     <!-- Top menu item -->
     <menuitem
         name="Agreements"
@@ -25,7 +25,6 @@
         sequence="10"
         action="agreement_dashboard_agreement"
     />
-
     <!-- Operations -->
     <menuitem
         name="Operations"
@@ -40,7 +39,6 @@
         sequence="10"
         action="agreement_operations_agreement"
     />
-
     <!-- Master Data -->
     <menuitem
         name="Master Data"
@@ -89,7 +87,6 @@
         parent="agreement_masterdata"
         action="product.product_template_action"
     />
-
     <!-- Reporting -->
     <menuitem
         name="Reporting"
@@ -98,7 +95,6 @@
         parent="agreement.agreement_menu"
         groups="agreement_legal.group_agreement_manager"
     />
-
     <menuitem
         name="Agreements"
         id="agreement_agreement_reporting"
@@ -106,7 +102,6 @@
         parent="agreement_reporting"
         action="action_agreement_report_order"
     />
-
     <!-- Configuration -->
     <menuitem
         name="Configuration"

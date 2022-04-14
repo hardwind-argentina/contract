@@ -4,4 +4,3 @@
 * David Vidal <david.vidal@tecnativa.com>
 * Carlos Dauden <carlos.dauden@tecnativa.com>
 * Guillermo Llinares <guillermo@studio73.es>
-* Amamr Officewala <aofficewala@opensourceintegrators.com>

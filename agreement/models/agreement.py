@@ -10,19 +10,17 @@ class Agreement(models.Model):
     _description = "Agreement"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    code = fields.Char(required=True, tracking=True)
-    name = fields.Char(required=True, tracking=True)
+    code = fields.Char(required=True, track_visibility="onchange")
+    name = fields.Char(required=True, track_visibility="onchange")
     partner_id = fields.Many2one(
         "res.partner",
         string="Partner",
         ondelete="restrict",
         domain=[("parent_id", "=", False)],
-        tracking=True,
+        track_visibility="onchange",
     )
     company_id = fields.Many2one(
-        "res.company",
-        string="Company",
-        default=lambda self: self.env.company,
+        "res.company", string="Company", default=lambda self: self.env.company,
     )
     is_template = fields.Boolean(
         string="Is a Template?",
@@ -32,20 +30,18 @@ class Agreement(models.Model):
         "Template agreements don't require a partner.",
     )
     agreement_type_id = fields.Many2one(
-        "agreement.type",
-        string="Agreement Type",
-        help="Select the type of agreement",
+        "agreement.type", string="Agreement Type", help="Select the type of agreement",
     )
     domain = fields.Selection(
         "_domain_selection",
         string="Domain",
         default="sale",
-        tracking=True,
+        track_visibility="onchange",
     )
     active = fields.Boolean(default=True)
-    signature_date = fields.Date(tracking=True)
-    start_date = fields.Date(tracking=True)
-    end_date = fields.Date(tracking=True)
+    signature_date = fields.Date(track_visibility="onchange")
+    start_date = fields.Date(track_visibility="onchange")
+    end_date = fields.Date(track_visibility="onchange")
 
     @api.model
     def _domain_selection(self):

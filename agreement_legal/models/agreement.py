@@ -3,6 +3,7 @@
 
 import ast
 import json as simplejson
+from datetime import timedelta
 
 from lxml import etree
 
@@ -96,6 +97,7 @@ class Agreement(models.Model):
         tracking=True,
         help="Date that the contract was terminated.",
     )
+    no_end_date = fields.Boolean(related="agreement_type_id.no_end_date")
     reviewed_date = fields.Date(string="Reviewed Date", tracking=True)
     reviewed_user_id = fields.Many2one("res.users", string="Reviewed By", tracking=True)
     approved_date = fields.Date(string="Approved Date", tracking=True)
@@ -174,9 +176,7 @@ class Agreement(models.Model):
         string="Dynamic Parties",
         help="Compute dynamic parties",
     )
-    agreement_type_id = fields.Many2one(
-        tracking=True,
-    )
+    agreement_type_id = fields.Many2one(tracking=True,)
     agreement_subtype_id = fields.Many2one(
         "agreement.subtype",
         string="Agreement Sub-type",
@@ -286,13 +286,44 @@ class Agreement(models.Model):
          template field.""",
     )
     template_id = fields.Many2one(
-        "agreement",
-        string="Template",
-        domain=[("is_template", "=", True)],
+        "agreement", string="Template", domain=[("is_template", "=", True)],
     )
-    readonly = fields.Boolean(
-        related="stage_id.readonly",
+    readonly = fields.Boolean(related="stage_id.readonly",)
+    to_review_date = fields.Date(
+        compute="_compute_to_review_date",
+        store=True,
+        readonly=False,
+        help="Date used to warn us some days before agreement expires",
     )
+
+    @api.depends("agreement_type_id", "end_date")
+    def _compute_to_review_date(self):
+        for record in self:
+            if record.end_date:
+                record.to_review_date = record.end_date + timedelta(
+                    days=-record.agreement_type_id.review_days
+                )
+
+    @api.model
+    def _alert_to_review_date(self):
+        agreements = self.search(
+            [
+                ("to_review_date", "=", fields.Date.today()),
+                ("agreement_type_id.review_user_id", "!=", False),
+            ]
+        )
+        for agreement in agreements:
+            if (
+                self.env["mail.activity"].search_count(
+                    [("res_id", "=", agreement.id), ("res_model", "=", self._name)]
+                )
+                == 0
+            ):
+                agreement.activity_schedule(
+                    "agreement_legal.mail_activity_review_agreement",
+                    user_id=agreement.agreement_type_id.review_user_id.id,
+                    note=_("Your activity is going to end soon"),
+                )
 
     # compute the dynamic content for jinja expression
     def _compute_dynamic_description(self):

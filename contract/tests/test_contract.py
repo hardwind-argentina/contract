@@ -21,8 +21,6 @@ class TestContractBase(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.uom_categ_obj = cls.env["uom.category"]
-        cls.uom_obj = cls.env["uom.uom"]
         cls.today = fields.Date.today()
         cls.pricelist = cls.env["product.pricelist"].create(
             {"name": "pricelist for contract test"}
@@ -32,13 +30,6 @@ class TestContractBase(common.SavepointCase):
                 "name": "partner test contract",
                 "property_product_pricelist": cls.pricelist.id,
                 "email": "demo@demo.com",
-            }
-        )
-        cls.partner_2 = cls.env["res.partner"].create(
-            {
-                "name": "partner test contract 2",
-                "property_product_pricelist": cls.pricelist.id,
-                "email": "demo2@demo.com",
             }
         )
         cls.product_1 = cls.env.ref("product.product_product_1")
@@ -128,6 +119,7 @@ class TestContractBase(common.SavepointCase):
             "is_auto_renew": False,
         }
         cls.acct_line = cls.env["contract.line"].create(cls.line_vals)
+        cls.acct_line.product_id.is_auto_renew = True
         cls.contract.company_id.create_new_line_at_contract_line_renew = True
         cls.terminate_reason = cls.env["contract.terminate.reason"].create(
             {"name": "terminate_reason"}
@@ -176,19 +168,6 @@ class TestContractBase(common.SavepointCase):
                 ],
             }
         )
-
-    @classmethod
-    def _create_uom(cls):
-        vals = {
-            "name": "New Uom Categ",
-        }
-        categ = cls.uom_categ_obj.create(vals)
-        vals = {
-            "name": "New Uom",
-            "category_id": categ.id,
-            "factor": 1.0,
-        }
-        return cls.uom_obj.create(vals)
 
 
 class TestContract(TestContractBase):
@@ -274,7 +253,8 @@ class TestContract(TestContractBase):
     def test_contract(self):
         self.assertEqual(self.contract.recurring_next_date, to_date("2018-01-15"))
         self.assertAlmostEqual(self.acct_line.price_subtotal, 50.0)
-        self.acct_line._onchange_product_id()
+        res = self.acct_line._onchange_product_id()
+        self.assertIn("uom_id", res["domain"])
         self.acct_line.price_unit = 100.0
         self.contract.partner_id = self.partner.id
         self.contract.recurring_create_invoice()
@@ -504,35 +484,21 @@ class TestContract(TestContractBase):
             self.contract.partner_id.property_product_pricelist,
         )
 
-    def test_invoice_partner_id_domain(self):
-        contract_form = self.contract.fields_view_get(False, "form")
-        invoice_partner_id_field = contract_form["fields"].get("invoice_partner_id")
-        self.assertEqual(
-            self.contract._fields["invoice_partner_id"].domain,
-            invoice_partner_id_field.get("domain"),
-        )
-
     def test_uom(self):
         uom_litre = self.env.ref("uom.product_uom_litre")
         self.acct_line.uom_id = uom_litre.id
         self.acct_line._onchange_product_id()
         self.assertEqual(self.acct_line.uom_id, self.acct_line.product_id.uom_id)
 
+    def test_onchange_product_id(self):
+        line = self.env["contract.line"].new()
+        res = line._onchange_product_id()
+        self.assertFalse(res["domain"]["uom_id"])
+
     def test_no_pricelist(self):
         self.contract.pricelist_id = False
         self.acct_line.quantity = 2
         self.assertAlmostEqual(self.acct_line.price_subtotal, 100.0)
-
-    def test_contract_uom_domain(self):
-        """Create a new uom. Try to set it on contract line.
-        The one set should not be that one"""
-        contract_form = self.contract.fields_view_get(False, "form")
-        contract_line_ids_field = contract_form["fields"].get("contract_line_ids")
-        uom_id_field = contract_line_ids_field["views"]["tree"]["fields"].get("uom_id")
-        self.assertEqual(
-            self.contract.contract_line_ids._fields["uom_id"].domain,
-            uom_id_field.get("domain"),
-        )
 
     def test_check_journal(self):
         journal = self.env["account.journal"].search([("type", "=", "sale")])
@@ -585,8 +551,7 @@ class TestContract(TestContractBase):
         self.contract.contract_template_id = self.template
 
         self.assertFalse(
-            self.contract.contract_line_ids,
-            "Recurring lines were not removed.",
+            self.contract.contract_line_ids, "Recurring lines were not removed.",
         )
         self.contract.contract_template_id = self.template
         self.contract._onchange_contract_template_id()
@@ -612,9 +577,24 @@ class TestContract(TestContractBase):
         self.contract._onchange_contract_type()
         self.assertEqual(self.contract.journal_id.type, "sale")
         self.assertEqual(self.contract.journal_id.company_id, self.contract.company_id)
-        self.contract.contract_type = "purchase"
+        self.contract.type = "purchase"
         self.contract._onchange_contract_type()
         self.assertFalse(any(self.contract.contract_line_ids.mapped("automatic_price")))
+
+    def test_contract_onchange_product_id_domain_blank(self):
+        """It should return a blank UoM domain when no product."""
+        line = self.env["contract.template.line"].new()
+        res = line._onchange_product_id()
+        self.assertFalse(res["domain"]["uom_id"])
+
+    def test_contract_onchange_product_id_domain(self):
+        """It should return UoM category domain."""
+        line = self._add_template_line()
+        res = line._onchange_product_id()
+        self.assertEqual(
+            res["domain"]["uom_id"][0],
+            ("category_id", "=", self.product_1.uom_id.category_id.id),
+        )
 
     def test_contract_onchange_product_id_uom(self):
         """It should update the UoM for the line."""
@@ -1659,8 +1639,7 @@ class TestContract(TestContractBase):
         self.assertFalse(new_line.is_canceled)
         self.assertEqual(self.acct_line.successor_contract_line_id, new_line)
         self.assertEqual(
-            new_line.recurring_next_date,
-            suspension_end + relativedelta(days=1),
+            new_line.recurring_next_date, suspension_end + relativedelta(days=1),
         )
 
     def test_cancel_uncancel_with_predecessor_has_successor(self):
@@ -1770,9 +1749,38 @@ class TestContract(TestContractBase):
             [("contract_line_id", "in", contracts.mapped("contract_line_ids").ids)]
         )
         self.assertEqual(
-            len(contracts.mapped("contract_line_ids")),
-            len(invoice_lines),
+            len(contracts.mapped("contract_line_ids")), len(invoice_lines),
         )
+
+    def test_contract_manually_create_invoice(self):
+        self.acct_line.date_start = "2018-01-01"
+        self.acct_line.recurring_invoicing_type = "post-paid"
+        self.acct_line.date_end = "2018-03-15"
+        self.contract2.unlink()
+        contracts = self.contract
+        for _i in range(10):
+            contracts |= self.contract.copy()
+        wizard = self.env["contract.manually.create.invoice"].create(
+            {"invoice_date": self.today}
+        )
+        wizard.action_show_contract_to_invoice()
+        contract_to_invoice_count = wizard.contract_to_invoice_count
+        self.assertFalse(
+            contracts
+            - self.env["contract.contract"].search(
+                wizard.action_show_contract_to_invoice()["domain"]
+            ),
+        )
+        action = wizard.create_invoice()
+        invoice_lines = self.env["account.move.line"].search(
+            [("contract_line_id", "in", contracts.mapped("contract_line_ids").ids)]
+        )
+        self.assertEqual(
+            len(contracts.mapped("contract_line_ids")), len(invoice_lines),
+        )
+        invoices = self.env["account.move"].search(action["domain"])
+        self.assertFalse(invoice_lines.mapped("move_id") - invoices)
+        self.assertEqual(len(invoices), contract_to_invoice_count)
 
     def test_get_period_to_invoice_monthlylastday_postpaid(self):
         self.acct_line.date_start = "2018-01-05"
@@ -1780,22 +1788,19 @@ class TestContract(TestContractBase):
         self.acct_line.recurring_rule_type = "monthlylastday"
         self.acct_line.date_end = "2018-03-15"
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-01-05"))
         self.assertEqual(last, to_date("2018-01-31"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-02-01"))
         self.assertEqual(last, to_date("2018-02-28"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-03-01"))
         self.assertEqual(last, to_date("2018-03-15"))
@@ -1807,8 +1812,7 @@ class TestContract(TestContractBase):
         self.acct_line.recurring_rule_type = "monthlylastday"
         self.acct_line.date_end = "2018-03-15"
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-01-05"))
         self.assertEqual(last, to_date("2018-01-31"))
@@ -1816,8 +1820,7 @@ class TestContract(TestContractBase):
         self.assertEqual(self.acct_line.recurring_next_date, to_date("2018-01-05"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-02-01"))
         self.assertEqual(last, to_date("2018-02-28"))
@@ -1826,8 +1829,7 @@ class TestContract(TestContractBase):
         self.assertEqual(self.acct_line.last_date_invoiced, to_date("2018-01-31"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-03-01"))
         self.assertEqual(last, to_date("2018-03-15"))
@@ -1836,8 +1838,7 @@ class TestContract(TestContractBase):
         self.assertEqual(self.acct_line.last_date_invoiced, to_date("2018-02-28"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertFalse(first)
         self.assertFalse(last)
@@ -1852,15 +1853,13 @@ class TestContract(TestContractBase):
         self.acct_line.date_end = "2018-08-15"
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-02-05"))
         self.assertEqual(last, to_date("2018-03-04"))
         self.acct_line.recurring_next_date = "2018-06-05"
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-02-05"))
         self.assertEqual(last, to_date("2018-07-04"))
@@ -1872,15 +1871,13 @@ class TestContract(TestContractBase):
         self.acct_line.date_end = "2018-08-15"
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-02-05"))
         self.assertEqual(last, to_date("2018-03-04"))
         self.acct_line.recurring_next_date = "2018-06-05"
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-02-05"))
         self.assertEqual(last, to_date("2018-06-04"))
@@ -1891,22 +1888,19 @@ class TestContract(TestContractBase):
         self.acct_line.recurring_rule_type = "monthly"
         self.acct_line.date_end = "2018-03-15"
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-01-05"))
         self.assertEqual(last, to_date("2018-02-04"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-02-05"))
         self.assertEqual(last, to_date("2018-03-04"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-03-05"))
         self.assertEqual(last, to_date("2018-03-15"))
@@ -1917,22 +1911,19 @@ class TestContract(TestContractBase):
         self.acct_line.recurring_rule_type = "monthly"
         self.acct_line.date_end = "2018-03-15"
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-01-05"))
         self.assertEqual(last, to_date("2018-02-04"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-02-05"))
         self.assertEqual(last, to_date("2018-03-04"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-03-05"))
         self.assertEqual(last, to_date("2018-03-15"))
@@ -1943,22 +1934,19 @@ class TestContract(TestContractBase):
         self.acct_line.recurring_rule_type = "yearly"
         self.acct_line.date_end = "2020-03-15"
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-01-05"))
         self.assertEqual(last, to_date("2019-01-04"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2019-01-05"))
         self.assertEqual(last, to_date("2020-01-04"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2020-01-05"))
         self.assertEqual(last, to_date("2020-03-15"))
@@ -1969,22 +1957,19 @@ class TestContract(TestContractBase):
         self.acct_line.recurring_rule_type = "yearly"
         self.acct_line.date_end = "2020-03-15"
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2018-01-05"))
         self.assertEqual(last, to_date("2019-01-04"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2019-01-05"))
         self.assertEqual(last, to_date("2020-01-04"))
         self.contract.recurring_create_invoice()
         first, last, recurring_next_date = self.acct_line._get_period_to_invoice(
-            self.acct_line.last_date_invoiced,
-            self.acct_line.recurring_next_date,
+            self.acct_line.last_date_invoiced, self.acct_line.recurring_next_date,
         )
         self.assertEqual(first, to_date("2020-01-05"))
         self.assertEqual(last, to_date("2020-03-15"))
@@ -2211,8 +2196,8 @@ class TestContract(TestContractBase):
         # Assume contract 2 is for company 2
         self.contract2.company_id = company2
         # Update the partner attached to both contracts
-        self.partner.with_user(unprivileged_user).with_company(company2).with_context(
-            company_id=company2.id
+        self.partner.with_user(unprivileged_user).with_context(
+            company_id=company2.id, force_company=company2.id
         ).write({"is_company": False, "parent_id": parent_partner.id})
 
     def test_sale_fields_view_get(self):
@@ -2329,9 +2314,7 @@ class TestContract(TestContractBase):
         group_can_terminate_contract.users |= self.env.user
         with self.assertRaises(ValidationError):
             self.contract._terminate_contract(
-                self.terminate_reason,
-                "terminate_comment",
-                to_date("2018-02-13"),
+                self.terminate_reason, "terminate_comment", to_date("2018-02-13"),
             )
 
     def test_recurrency_propagation(self):
