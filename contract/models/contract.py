@@ -569,6 +569,12 @@ class ContractContract(models.Model):
         if not date_ref:
             date_ref = fields.Date.context_today(self)
         domain = self._get_contracts_to_invoice_domain(date_ref)
+        domain = expression.AND(
+            [
+                domain,
+                [("generation_type", "=", create_type)],
+            ]
+        )
         invoices = self.env["account.move"]
         # Invoice by companies, so assignation emails get correct context
         companies_to_invoice = self.read_group(domain, ["company_id"], ["company_id"])
